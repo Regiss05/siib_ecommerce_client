@@ -7,6 +7,7 @@ import ShoppingCartCheckoutIcon from "@mui/icons-material/ShoppingCartCheckout";
 import ChatIcon from "@mui/icons-material/Chat";
 import StoreOutlinedIcon from '@mui/icons-material/StoreOutlined';
 import { useCart } from "../context/CartContext";  // Import useCart
+import FavoriteIcon from '@mui/icons-material/Favorite';
 
 export default function Footer() {
   const [value, setValue] = useState(0);
@@ -20,15 +21,15 @@ export default function Footer() {
         navigate("/");
         break;
       case 1:
-        navigate("/favorite");
+        navigate("/shops");
         break;
+      // case 2:
+      //   navigate("/liked-products");
+      //   break;
       case 2:
-        navigate("/add");
-        break;
-      case 3:
         navigate("/cart");
         break;
-      case 4:
+      case 3:
         navigate("/chat");
         break;
       default:
@@ -51,7 +52,8 @@ export default function Footer() {
       <BottomNavigation value={value} onChange={handleChange} showLabels>
         <BottomNavigationAction label="Home" icon={<HomeIcon />} sx={{ "&.Mui-selected": { color: "#362fff" } }} />
         <BottomNavigationAction label="Shops" icon={<StoreOutlinedIcon />} sx={{ "&.Mui-selected": { color: "#362fff" } }} />
-        <BottomNavigationAction icon={<AddCircleIcon sx={{ fontSize: "60px" }} />} sx={{ "&.Mui-selected": { color: "#362fff" } }} />
+        {/* <BottomNavigationAction icon={<AddCircleIcon sx={{ fontSize: "60px" }} />} sx={{ "&.Mui-selected": { color: "#362fff" } }} /> */}
+        {/* <BottomNavigationAction label="Favorites" icon={<FavoriteIcon />} sx={{ "&.Mui-selected": { color: "#362fff" } }} /> */}
         
         {/* Cart with Badge */}
         <BottomNavigationAction
