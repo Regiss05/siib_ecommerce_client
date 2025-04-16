@@ -98,19 +98,6 @@ const ProductsPage: React.FC<{ searchQuery: string }> = ({ searchQuery }) => {
 
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column', margin: '20px' }}>
-      {/* <Button
-        variant="contained"
-        sx={{
-          marginBottom: 2,
-          alignSelf: 'flex-end',
-          backgroundColor: '#6030ff',
-          '&:hover': { backgroundColor: '#4a23cc' },
-        }}
-        onClick={() => navigate('/liked-products', { state: { liked: likedProducts } })}
-      >
-        Show All Likes
-      </Button> */}
-
       <Grid container spacing={3}>
         {filteredProducts.map((product) => (
           <Grid item key={product._id} xs={6} sm={4} md={3} lg={2}>
