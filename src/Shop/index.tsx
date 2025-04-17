@@ -1,9 +1,8 @@
 import React from "react";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useLocation } from "react-router-dom";
 import Home from "./components/Home";
 import Shops from "./components/Shops";
 import CartPage from "./components/CartPage";
-import Cart from "./components/CartPage";
 import Chat from "./components/Chat";
 import AddItem from "./components/AddItem";
 import CreateShop from "./components/CreateShop";
@@ -11,28 +10,30 @@ import Footer from "./components/Footer";
 import Checkout from "./components/Checkout";
 import ProductDetail from "./components/ProductDetail";
 import PaymentPage from "./components/PaymentPage";
-// import Favorites from "./components/Favorites";
 import LikedProductsPage from "./components/LikedProductsPage";
+import StartPage from "./components/StartPage";
 
 export default function App() {
-  // useTranslation(); // Ensure the useTranslation hook is called
-  
+  const location = useLocation(); // Get current route
+
   return (
     <>
-      <Routes> {/* Wrap the routes inside the Routes component */}
-        <Route path="/" element={<Home />} />
+      <Routes>
+        <Route path="/" element={<StartPage />} />
+        <Route path="/home" element={<Home />} />
         <Route path="/shops" element={<Shops />} />
         <Route path="/add" element={<AddItem />} />
         <Route path="/CreateShop" element={<CreateShop />} />
         <Route path="/Checkout" element={<Checkout />} />
         <Route path="/chat" element={<Chat />} />
-        <Route path="/product/:id" element={<ProductDetail />} /> {/* Add product details route */}
-        <Route path="/cart" element={<Cart />} />
+        <Route path="/product/:id" element={<ProductDetail />} />
+        <Route path="/cart" element={<CartPage />} />
         <Route path="/payment/:orderId" element={<PaymentPage />} />
-        {/* <Route path="/favorites" element={<Favorites />} /> */}
         <Route path="/liked-products" element={<LikedProductsPage />} />
       </Routes>
-      <Footer />
+
+      {/* Conditionally render Footer only if not on StartPage */}
+      {location.pathname !== "/" && <Footer />}
     </>
   );
 }
