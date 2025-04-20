@@ -8,6 +8,7 @@ import ChatIcon from "@mui/icons-material/Chat";
 import StoreOutlinedIcon from '@mui/icons-material/StoreOutlined';
 import { useCart } from "../context/CartContext";  // Import useCart
 import FavoriteIcon from '@mui/icons-material/Favorite';
+import StartIcon from '@mui/icons-material/Start';
 
 export default function Footer() {
   const [value, setValue] = useState(0);
@@ -21,15 +22,18 @@ export default function Footer() {
         navigate("/");
         break;
       case 1:
+        navigate("/home");
+        break;
+      case 2:
         navigate("/shops");
         break;
       // case 2:
       //   navigate("/liked-products");
       //   break;
-      case 2:
+      case 3:
         navigate("/cart");
         break;
-      case 3:
+      case 4:
         navigate("/chat");
         break;
       default:
@@ -50,6 +54,7 @@ export default function Footer() {
       elevation={3}
     >
       <BottomNavigation value={value} onChange={handleChange} showLabels>
+        <BottomNavigationAction label="Start" icon={<StartIcon />} sx={{ "&.Mui-selected": { color: "#362fff" } }} />
         <BottomNavigationAction label="Home" icon={<HomeIcon />} sx={{ "&.Mui-selected": { color: "#362fff" } }} />
         <BottomNavigationAction label="Shops" icon={<StoreOutlinedIcon />} sx={{ "&.Mui-selected": { color: "#362fff" } }} />
         {/* <BottomNavigationAction icon={<AddCircleIcon sx={{ fontSize: "60px" }} />} sx={{ "&.Mui-selected": { color: "#362fff" } }} /> */}
