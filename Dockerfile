@@ -9,7 +9,6 @@ COPY package*.json ./
 RUN npm install --legacy-peer-deps
 #To bundle your app’s source code inside the Docker image, use the COPY instruction:
 COPY . /app
-RUN npx update-browserslist-db@latest
 RUN npm run build
 
 FROM nginx:alpine
