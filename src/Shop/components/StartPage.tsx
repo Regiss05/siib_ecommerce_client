@@ -125,7 +125,7 @@ const StartPage = () => {
             <Box sx={{ height: "50px", width: "50px", backgroundColor: "white", borderRadius: "50%" }}></Box>
             <Box sx={{ textAlign: "left" }}>
               <Typography sx={{ fontSize: "14px", fontWeight: "bold" }}>Roland Cibyebi</Typography>
-              <Typography sx={{ fontSize: "12px" }}>Software Engineer</Typography>
+              <Typography sx={{ fontSize: "12px" }}>Director New Vision</Typography>
             </Box>
           </Box>
           <Typography sx={{ fontSize: "12px", textTransform: "none", lineHeight: 1, color: "gray", textAlign: 'left' }}>

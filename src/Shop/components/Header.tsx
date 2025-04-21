@@ -14,6 +14,7 @@ import Box from "@mui/material/Box";
 import locationshop from "../../imges/statics/locationshop.svg";
 import { useNavigate } from "react-router-dom";
 import IconButton from "@mui/material/IconButton";
+import StartIcon from '@mui/icons-material/Start';
 
 interface HeaderProps {
   user: User | null;
@@ -79,18 +80,18 @@ function Header({ user, onSignIn, onSignOut, setSearchQuery }: HeaderProps) {
       }
     }
   }, [onSignIn]);
-  
+
 
   const handleSignIn = () => {
     const userData: User = { uid: "12345", username: "testUser" }; // ✅ Replace with actual authentication logic
     onSignIn(userData);
     localStorage.setItem("user", JSON.stringify(userData)); // ✅ Store user in localStorage
-  };   
+  };
 
   const handleSignOut = () => {
     onSignOut();
     localStorage.removeItem("user"); // ✅ Remove user from localStorage
-  };  
+  };
 
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
@@ -133,7 +134,21 @@ function Header({ user, onSignIn, onSignOut, setSearchQuery }: HeaderProps) {
           <IconButton onClick={() => navigate("/CreateShop")} sx={{ padding: 0 }}>
             <img className="icohome" src={shopsloc} alt="shopsloc" />
           </IconButton>
-          <img className="icohome" src={locationshop} alt="sort" />
+          <IconButton onClick={() => navigate("/")} sx={{ padding: 0 }}>
+            <Box
+              sx={{
+                backgroundColor: "rgba(255, 255, 255, 0.3)",
+                borderRadius: "5px",
+                padding: "5px",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              <StartIcon sx={{ color: "white" }} />
+            </Box>
+          </IconButton>
+
         </Box>
       </Box>
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginTop: "15px" }}>
@@ -141,9 +156,9 @@ function Header({ user, onSignIn, onSignOut, setSearchQuery }: HeaderProps) {
           <SearchIconWrapper>
             <SearchIcon />
           </SearchIconWrapper>
-          <StyledInputBase 
-            placeholder={t("search")} 
-            inputProps={{ "aria-label": "search" }} 
+          <StyledInputBase
+            placeholder={t("search")}
+            inputProps={{ "aria-label": "search" }}
             onChange={(e) => setSearchQuery(e.target.value)}
           />
         </Search>
