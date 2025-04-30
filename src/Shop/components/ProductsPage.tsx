@@ -44,7 +44,7 @@ const ProductsPage: React.FC<{ searchQuery: string }> = ({ searchQuery }) => {
 
   // Load all products and match with likes from localStorage
   useEffect(() => {
-    fetch("https://eserver.siibarnut.com//products")
+    fetch("https://eserver.siibarnut.com/products")
       .then((res) => res.json())
       .then((data) => {
         console.log('Fetched products:', data.products); // <-- ADD THIS
@@ -60,7 +60,7 @@ const ProductsPage: React.FC<{ searchQuery: string }> = ({ searchQuery }) => {
   // Handle like button
   const handleLike = async (id: string) => {
     try {
-      const res = await fetch(`https://eserver.siibarnut.com//products/${id}/like`, {
+      const res = await fetch(`https://eserver.siibarnut.com/products/${id}/like`, {
         method: "POST",
       });
       const data = await res.json();

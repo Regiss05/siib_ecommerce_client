@@ -134,7 +134,7 @@ const CreateShop = () => {
     }
 
     try {
-      const response = await axios.post("https://eserver.siibarnut.com//shops/add", formDataToSend, {
+      const response = await axios.post("https://eserver.siibarnut.com/shops/add", formDataToSend, {
         headers: {
           "Content-Type": "multipart/form-data",
         },

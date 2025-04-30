@@ -29,7 +29,7 @@ const Cart = () => {
       }
   
       try {
-        const response = await axios.get(`https://eserver.siibarnut.com//cart/${user.uid}`);
+        const response = await axios.get(`https://eserver.siibarnut.com/cart/${user.uid}`);
         setCart(response.data.cart || []);
       } catch (error) {
         console.error("Error fetching cart:", error);
@@ -57,7 +57,7 @@ const Cart = () => {
       await Promise.all(
         uniqueShopIds.map(async (shopId) => {
           try {
-            const response = await axios.get(`https://eserver.siibarnut.com//shops/${shopId}`);
+            const response = await axios.get(`https://eserver.siibarnut.com/shops/${shopId}`);
             shopNameMap[shopId] = response.data.shop.shopName;
           } catch (error) {
             shopNameMap[shopId] = "Unknown Shop";

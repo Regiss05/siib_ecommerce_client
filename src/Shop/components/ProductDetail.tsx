@@ -31,7 +31,7 @@ const ProductDetail: React.FC = () => {
 
   const handleLike = async (id: string) => {
     try {
-      const res = await fetch(`https://eserver.siibarnut.com//products/${id}/like`, { method: "POST" });
+      const res = await fetch(`https://eserver.siibarnut.com/products/${id}/like`, { method: "POST" });
       const data = await res.json();
       if (product) {
         setProduct({ ...product, likes: data.likes });
@@ -42,7 +42,7 @@ const ProductDetail: React.FC = () => {
   };
 
   useEffect(() => {
-    fetch(`https://eserver.siibarnut.com//products/${id}`)
+    fetch(`https://eserver.siibarnut.com/products/${id}`)
       .then((res) => res.json())
       .then((data) => {
         setProduct(data.product);
@@ -96,7 +96,7 @@ const ProductDetail: React.FC = () => {
     }
   
     try {
-      const response = await fetch("https://eserver.siibarnut.com//cart/add", {
+      const response = await fetch("https://eserver.siibarnut.com/cart/add", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

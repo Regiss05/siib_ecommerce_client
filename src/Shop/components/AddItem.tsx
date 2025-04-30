@@ -17,7 +17,7 @@ const AddItem = () => {
   const [imageFile, setImageFile] = useState<File | null>(null);
 
   useEffect(() => {
-    axios.get("https://eserver.siibarnut.com//shops")
+    axios.get("https://eserver.siibarnut.com/shops")
       .then((res) => setShops(res.data.shops))
       .catch((error) => console.error("Error fetching shops:", error));
   }, []);
@@ -43,7 +43,7 @@ const AddItem = () => {
     formData.append("image", imageFile);
 
     try {
-      const response = await fetch("https://eserver.siibarnut.com//products/add", {
+      const response = await fetch("https://eserver.siibarnut.com/products/add", {
         method: "POST",
         body: formData,
       });
