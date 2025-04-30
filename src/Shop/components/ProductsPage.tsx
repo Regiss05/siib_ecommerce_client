@@ -44,7 +44,7 @@ const ProductsPage: React.FC<{ searchQuery: string }> = ({ searchQuery }) => {
 
   // Load all products and match with likes from localStorage
   useEffect(() => {
-    fetch("http://localhost:8000/products")
+    fetch("https://eserver.siibarnut.com//products")
       .then((res) => res.json())
       .then((data) => {
         console.log('Fetched products:', data.products); // <-- ADD THIS
@@ -60,7 +60,7 @@ const ProductsPage: React.FC<{ searchQuery: string }> = ({ searchQuery }) => {
   // Handle like button
   const handleLike = async (id: string) => {
     try {
-      const res = await fetch(`http://localhost:8000/products/${id}/like`, {
+      const res = await fetch(`https://eserver.siibarnut.com//products/${id}/like`, {
         method: "POST",
       });
       const data = await res.json();
@@ -116,7 +116,7 @@ const ProductsPage: React.FC<{ searchQuery: string }> = ({ searchQuery }) => {
               <CardMedia
                 component="img"
                 height="88"
-                image={`http://localhost:8000${product.imageUrl}`}
+                image={`https://eserver.siibarnut.com/${product.imageUrl}`}
                 alt={product.name}
               />
               <CardContent sx={{ margin: 0, padding: 1 }}>
