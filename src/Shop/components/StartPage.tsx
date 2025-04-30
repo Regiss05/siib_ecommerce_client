@@ -1,6 +1,6 @@
 import React from 'react';
 import { Container, Typography, Box, Button } from '@mui/material';
-import startPic from '../../imges/statics/startpic.svg';
+import startPic from '../../imges/statics/startpic.png';
 import logo from '../../imges/statics/logo.svg';
 import { useNavigate } from "react-router-dom";
 import shopping from '../../imges/statics/shopping.svg';

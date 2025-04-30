@@ -36,7 +36,7 @@ const LikedProductsPage: React.FC = () => {
               <CardMedia
                 component="img"
                 height="88"
-                image={`https://eserver.siibarnut.com${product.imageUrl}`}
+                image={`http://localhost:8000${product.imageUrl}`}
                 alt={product.name}
               />
               <CardContent sx={{ margin: 0, padding: 1 }}>
