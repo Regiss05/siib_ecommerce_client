@@ -113,7 +113,7 @@ const Cart = () => {
             }}>
               <Box sx={{ display: "flex", alignItems: "center", justifyContent: "space-between", width: "100%" }}>
                 <Box sx={{ display: "flex", gap: "1px" }}>
-                  <CardMedia component="img" image={`https://eserver.siibarnut.com${item.imageUrl}`} sx={{ minWidth: 110, maxWidth: 110, height: 80 }} />
+                  <CardMedia component="img" image={`https://eserver.siibarnut.com/${item.imageUrl}`} sx={{ minWidth: 110, maxWidth: 110, height: 80 }} />
                   <CardContent>
                     <Typography sx={{ fontSize: '20px', color: "gray" }}>{item.name}</Typography>
                     <Typography variant="caption" sx={{ color: "#362FFF", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "15px", gap: "5px", backgroundColor: "#EBE8E8", borderRadius: "8px", padding: "1px 5px" }}>

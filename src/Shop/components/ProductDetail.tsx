@@ -132,7 +132,7 @@ const ProductDetail: React.FC = () => {
         <CardMedia
           component="img"
           height="280"
-          image={`https://eserver.siibarnut.com${product.imageUrl}`}
+          image={`https://eserver.siibarnut.com/${product.imageUrl}`}
           alt={product.name}
         />
         <CardContent className="product-detail">

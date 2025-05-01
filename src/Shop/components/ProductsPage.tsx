@@ -24,6 +24,10 @@ interface Product {
   imageUrl: string;
   likes?: number;
   createdAt: string;
+  shopId: {
+    _id: string;
+    shopName: string;
+  };
 }
 
 const ProductsPage: React.FC<{ searchQuery: string }> = ({ searchQuery }) => {
@@ -43,17 +47,15 @@ const ProductsPage: React.FC<{ searchQuery: string }> = ({ searchQuery }) => {
     fetch("https://eserver.siibarnut.com/products")
       .then((res) => res.json())
       .then((data) => {
+        console.log('Fetched products:', data.products); // <-- ADD THIS
         setProducts(data.products);
-
-        // Get liked product IDs from localStorage
+  
         const likedIds = JSON.parse(localStorage.getItem("likedProductIds") || "[]");
-
-        // Match liked products
         const liked = data.products.filter((p: Product) => likedIds.includes(p._id));
         setLikedProducts(liked);
       })
       .catch((error) => console.error("Error fetching products:", error));
-  }, []);
+  }, []);  
 
   // Handle like button
   const handleLike = async (id: string) => {
@@ -114,7 +116,7 @@ const ProductsPage: React.FC<{ searchQuery: string }> = ({ searchQuery }) => {
               <CardMedia
                 component="img"
                 height="88"
-                image={`https://eserver.siibarnut.com${product.imageUrl}`}
+                image={`https://eserver.siibarnut.com/${product.imageUrl}`}
                 alt={product.name}
               />
               <CardContent sx={{ margin: 0, padding: 1 }}>
@@ -174,7 +176,21 @@ const ProductsPage: React.FC<{ searchQuery: string }> = ({ searchQuery }) => {
                   {product.description}
                 </Typography>
 
-                SIIB
+                <Typography
+                  variant="body2"
+                  color="textSecondary"
+                  sx={{
+                    whiteSpace: 'nowrap',
+                    overflow: 'hidden',
+                    textOverflow: 'ellipsis',
+                    display: 'block',
+                    maxWidth: '100%',
+                    fontSize: '10px',
+                    color: '#9d9d9d',
+                  }}
+                >
+                  {product.shopId?.shopName || "Unknown Shop"}
+                </Typography>
 
                 <Typography
                   variant="body1"
