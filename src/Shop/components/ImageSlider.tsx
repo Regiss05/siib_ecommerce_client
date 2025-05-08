@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Box, Button } from "@mui/material";
 import SwipeableViews from "react-swipeable-views";
+import { useNavigate } from "react-router-dom"; // Import useNavigate
 
 // Import images as default imports
 import Slide1 from "../../imges/statics/commerce.png";
@@ -24,7 +25,7 @@ const images = [
   {
     label: "Image 3",
     src: Slide3,
-    buttonLabel: "More...",
+    buttonLabel: "Apps",
     position: { bottom: "15%", left: "26%" },
   },
   {
@@ -38,6 +39,7 @@ const images = [
 export default function ImageSlider() {
   const [activeStep, setActiveStep] = useState(0);
   const maxSteps = images.length;
+  const navigate = useNavigate(); // Initialize navigate
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -45,6 +47,19 @@ export default function ImageSlider() {
     }, 5000);
     return () => clearInterval(interval);
   }, [maxSteps]);
+
+  // Button click handler
+  const handleButtonClick = (label) => {
+    if (label === "Create Account") {
+      window.open("https://bank.siibarnut.com/", "_blank");
+    } else if (label === "Create Shop") {
+      navigate("/CreateShop");
+    }else if (label === "Apps") {
+      navigate("/");
+    }else if (label === "More...") {
+      navigate("/cart");
+    }
+  };
 
   return (
     <Box sx={{ maxWidth: 800, flexGrow: 1, margin: "auto", textAlign: "center" }}>
@@ -74,6 +89,7 @@ export default function ImageSlider() {
                       textTransform: "none",
                       "&:hover": { backgroundColor: "#e69500" },
                     }}
+                    onClick={() => handleButtonClick(step.buttonLabel)}
                   >
                     {step.buttonLabel}
                   </Button>
