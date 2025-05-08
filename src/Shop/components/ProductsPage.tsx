@@ -7,11 +7,16 @@ import {
   Typography,
   Box,
   Grid,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  InputBase,
 } from "@mui/material";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import { useNavigate } from "react-router-dom";
+import SearchIcon from "@mui/icons-material/Search";
+import { styled } from "@mui/material/styles";
 
-// Define Product type
 interface Product {
   _id: string;
   name: string;
@@ -25,22 +30,52 @@ interface Product {
   shopId: {
     _id: string;
     shopName: string;
-  } | null;  // Important: shopId can be null if not populated
+  } | null;
 }
+
+const Search = styled("div")(() => ({
+  position: "relative",
+  borderRadius: "10px",
+  backgroundColor: "#f0f0f0",
+  width: "100%",
+  marginBottom: "15px",
+}));
+
+const SearchIconWrapper = styled("div")(({ theme }) => ({
+  padding: theme.spacing(0, 2),
+  height: "100%",
+  position: "absolute",
+  pointerEvents: "none",
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+}));
+
+const StyledInputBase = styled(InputBase)(({ theme }) => ({
+  color: "black",
+  width: "100%",
+  "& .MuiInputBase-input": {
+    padding: theme.spacing(1, 1, 1, 0),
+    paddingLeft: `calc(1em + ${theme.spacing(4)})`,
+    transition: theme.transitions.create("width"),
+    width: "100%",
+  },
+}));
 
 const ProductsPage: React.FC<{ searchQuery: string }> = ({ searchQuery }) => {
   const [products, setProducts] = useState<Product[]>([]);
   const [likedProducts, setLikedProducts] = useState<Product[]>([]);
+  const [popupOpen, setPopupOpen] = useState(false);
+  const [popupSearch, setPopupSearch] = useState("");
+
   const navigate = useNavigate();
 
-  // Utility: Check if product is new (5 days old)
   const isNewProduct = (createdAt: string) => {
     const createdTime = new Date(createdAt).getTime();
     const currentTime = new Date().getTime();
     return currentTime - createdTime <= 5 * 24 * 60 * 60 * 1000;
   };
 
-  // Load products
   useEffect(() => {
     fetch("http://localhost:8000/products")
       .then((res) => res.json())
@@ -55,7 +90,6 @@ const ProductsPage: React.FC<{ searchQuery: string }> = ({ searchQuery }) => {
       .catch((error) => console.error("Error fetching products:", error));
   }, []);
 
-  // Handle like button
   const handleLike = async (id: string) => {
     try {
       const res = await fetch(`http://localhost:8000/products/${id}/like`, {
@@ -91,10 +125,23 @@ const ProductsPage: React.FC<{ searchQuery: string }> = ({ searchQuery }) => {
     }
   };
 
-  // Filter products by search
+  // Filter main page products
   const filteredProducts = products.filter((product) =>
     product.name.toLowerCase().includes(searchQuery.toLowerCase())
   );
+
+  // Filter products inside popup
+  const popupFilteredProducts = products.filter((product) =>
+    product.name.toLowerCase().includes(popupSearch.toLowerCase())
+  );
+
+  // Open popup when typing in search (but do not auto-close)
+  useEffect(() => {
+    if (searchQuery) {
+      setPopupOpen(true);
+      setPopupSearch(searchQuery); // Keep search synced
+    }
+  }, [searchQuery]);
 
   return (
     <Box sx={{ display: "flex", flexDirection: "column", margin: "20px" }}>
@@ -151,10 +198,7 @@ const ProductsPage: React.FC<{ searchQuery: string }> = ({ searchQuery }) => {
                   </Box>
                 )}
 
-                <Typography
-                  variant="h6"
-                  sx={{ fontSize: "14px", fontWeight: "bold" }}
-                >
+                <Typography variant="h6" sx={{ fontSize: "14px", fontWeight: "bold" }}>
                   {product.name}
                 </Typography>
 
@@ -164,8 +208,6 @@ const ProductsPage: React.FC<{ searchQuery: string }> = ({ searchQuery }) => {
                     whiteSpace: "nowrap",
                     overflow: "hidden",
                     textOverflow: "ellipsis",
-                    display: "block",
-                    maxWidth: "100%",
                     fontSize: "10px",
                     color: "#9d9d9d",
                   }}
@@ -173,15 +215,12 @@ const ProductsPage: React.FC<{ searchQuery: string }> = ({ searchQuery }) => {
                   {product.description}
                 </Typography>
 
-                {/* ✅ Shop Name displayed here */}
                 <Typography
                   variant="body2"
                   sx={{
                     whiteSpace: "nowrap",
                     overflow: "hidden",
                     textOverflow: "ellipsis",
-                    display: "block",
-                    maxWidth: "100%",
                     fontSize: "10px",
                     color: "#6030ff",
                   }}
@@ -195,7 +234,7 @@ const ProductsPage: React.FC<{ searchQuery: string }> = ({ searchQuery }) => {
                     color: "#6030ff",
                     fontSize: "16px",
                     fontWeight: "bold",
-                    margin: "5px auto",
+                    marginTop: "5px",
                   }}
                 >
                   Price: {product.price} Pi
@@ -205,6 +244,78 @@ const ProductsPage: React.FC<{ searchQuery: string }> = ({ searchQuery }) => {
           </Grid>
         ))}
       </Grid>
+
+      {/* Popup Dialog */}
+      <Dialog
+        open={popupOpen}
+        onClose={() => setPopupOpen(false)}
+        maxWidth="md"
+        fullWidth
+      >
+        <DialogTitle sx={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+          Search Products
+          <IconButton onClick={() => setPopupOpen(false)}>
+            ✖️
+          </IconButton>
+        </DialogTitle>
+
+        <DialogContent>
+          {/* Search Bar */}
+          <Search>
+            <SearchIconWrapper>
+              <SearchIcon />
+            </SearchIconWrapper>
+            <StyledInputBase
+              placeholder="Search products..."
+              inputProps={{ "aria-label": "search" }}
+              value={popupSearch}
+              onChange={(e) => setPopupSearch(e.target.value)}
+            />
+          </Search>
+
+          <Grid container spacing={2}>
+            {popupFilteredProducts.map((product) => (
+              <Grid item key={product._id} xs={6} sm={4} md={3}>
+                <Card
+                  sx={{
+                    fontSize: "12px",
+                    borderRadius: "10px",
+                    cursor: "pointer",
+                  }}
+                  onClick={() => {
+                    navigate(`/product/${product._id}`);
+                    setPopupOpen(false); // Close popup when clicking a product
+                  }}
+                >
+                  <CardMedia
+                    component="img"
+                    height="120"
+                    image={`http://localhost:8000${product.imageUrl}`}
+                    alt={product.name}
+                  />
+                  <CardContent sx={{ padding: 1 }}>
+                    <Typography variant="h6" sx={{ fontSize: "12px", fontWeight: "bold" }}>
+                      {product.name}
+                    </Typography>
+                    <Typography
+                      variant="body2"
+                      sx={{ fontSize: "10px", color: "#9d9d9d", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}
+                    >
+                      {product.description}
+                    </Typography>
+                    <Typography
+                      variant="body1"
+                      sx={{ color: "#6030ff", fontSize: "12px", fontWeight: "bold" }}
+                    >
+                      {product.price} Pi
+                    </Typography>
+                  </CardContent>
+                </Card>
+              </Grid>
+            ))}
+          </Grid>
+        </DialogContent>
+      </Dialog>
     </Box>
   );
 };

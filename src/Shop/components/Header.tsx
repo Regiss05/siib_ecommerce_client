@@ -160,6 +160,7 @@ function Header({ user, onSignIn, onSignOut, setSearchQuery }: HeaderProps) {
             placeholder={t("search")}
             inputProps={{ "aria-label": "search" }}
             onChange={(e) => setSearchQuery(e.target.value)}
+            onFocus={() => setSearchQuery("show_all")} // 👈 Send signal when focused
           />
         </Search>
         <div>
