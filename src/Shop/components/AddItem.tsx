@@ -116,7 +116,7 @@ const AddItem = () => {
             <option value="">Select a Shop</option>
             {shops.map((shop) => (
               // @ts-ignore
-              <option key={shop._id} value={shop._id}>{shop.shopName}</option>
+              <option key={shop._id} value={shop._id}>{shop.name}</option>
             ))}
           </select>
 
