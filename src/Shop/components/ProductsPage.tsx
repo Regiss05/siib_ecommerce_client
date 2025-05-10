@@ -77,7 +77,7 @@ const ProductsPage: React.FC<{ searchQuery: string }> = ({ searchQuery }) => {
   };
 
   useEffect(() => {
-    fetch("http://localhost:8000/products")
+    fetch("https://eserver.siibarnut.com/products")
       .then((res) => res.json())
       .then((data) => {
         console.log("Fetched products:", data.products);
@@ -92,7 +92,7 @@ const ProductsPage: React.FC<{ searchQuery: string }> = ({ searchQuery }) => {
 
   const handleLike = async (id: string) => {
     try {
-      const res = await fetch(`http://localhost:8000/products/${id}/like`, {
+      const res = await fetch(`https://eserver.siibarnut.com/products/${id}/like`, {
         method: "POST",
       });
       const data = await res.json();
@@ -161,7 +161,7 @@ const ProductsPage: React.FC<{ searchQuery: string }> = ({ searchQuery }) => {
               <CardMedia
                 component="img"
                 height="88"
-                image={`http://localhost:8000${product.imageUrl}`}
+                image={`https://eserver.siibarnut.com${product.imageUrl}`}
                 alt={product.name}
               />
               <CardContent sx={{ margin: 0, padding: 1 }}>
@@ -225,7 +225,7 @@ const ProductsPage: React.FC<{ searchQuery: string }> = ({ searchQuery }) => {
                     color: "#6030ff",
                   }}
                 >
-                  {product.shopId?.shopName || "Unknown Shop"}
+                  {product.shopId}
                 </Typography>
 
                 <Typography
@@ -290,7 +290,7 @@ const ProductsPage: React.FC<{ searchQuery: string }> = ({ searchQuery }) => {
                   <CardMedia
                     component="img"
                     height="120"
-                    image={`http://localhost:8000${product.imageUrl}`}
+                    image={`https://eserver.siibarnut.com${product.imageUrl}`}
                     alt={product.name}
                   />
                   <CardContent sx={{ padding: 1 }}>
