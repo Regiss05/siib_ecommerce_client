@@ -20,6 +20,12 @@ interface Product {
   imageUrl: string;
   likes?: number;
   createdAt: string;
+  shopId: {
+    _id: string;
+    shopName: string;  // This is correctly being populated
+    fullName: string;  // Ensure fullName is here as well
+    country: string;
+  } | null;
 }
 
 const ProductDetail: React.FC = () => {
@@ -31,7 +37,7 @@ const ProductDetail: React.FC = () => {
 
   const handleLike = async (id: string) => {
     try {
-      const res = await fetch(`https://eserver.siibarnut.com/products/${id}/like`, { method: "POST" });
+      const res = await fetch(`http://localhost:8000/products/${id}/like`, { method: "POST" });
       const data = await res.json();
       if (product) {
         setProduct({ ...product, likes: data.likes });
@@ -42,7 +48,7 @@ const ProductDetail: React.FC = () => {
   };
 
   useEffect(() => {
-    fetch(`https://eserver.siibarnut.com/products/${id}`)
+    fetch(`http://localhost:8000/products/${id}`)
       .then((res) => res.json())
       .then((data) => {
         setProduct(data.product);
@@ -96,7 +102,7 @@ const ProductDetail: React.FC = () => {
     }
   
     try {
-      const response = await fetch("https://eserver.siibarnut.com/cart/add", {
+      const response = await fetch("http://localhost:8000/cart/add", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -132,7 +138,7 @@ const ProductDetail: React.FC = () => {
         <CardMedia
           component="img"
           height="280"
-          image={`https://eserver.siibarnut.com/${product.imageUrl}`}
+          image={`http://localhost:8000${product.imageUrl}`}
           alt={product.name}
         />
         <CardContent className="product-detail">

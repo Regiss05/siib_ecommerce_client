@@ -17,7 +17,7 @@ import { useNavigate } from "react-router-dom";
 import SearchIcon from "@mui/icons-material/Search";
 import { styled } from "@mui/material/styles";
 
-interface Product {
+export type Product = {
   _id: string;
   name: string;
   description: string;
@@ -27,9 +27,11 @@ interface Product {
   imageUrl: string;
   likes?: number;
   createdAt: string;
-  shopId: {
+  shop: {
     _id: string;
-    shopName: string;
+    shopName: string;  // This is correctly being populated
+    fullName: string;  // Ensure fullName is here as well
+    country: string;
   } | null;
 }
 
@@ -77,7 +79,7 @@ const ProductsPage: React.FC<{ searchQuery: string }> = ({ searchQuery }) => {
   };
 
   useEffect(() => {
-    fetch("https://eserver.siibarnut.com/products")
+    fetch("http://localhost:8000/products")
       .then((res) => res.json())
       .then((data) => {
         console.log("Fetched products:", data.products);
@@ -92,7 +94,7 @@ const ProductsPage: React.FC<{ searchQuery: string }> = ({ searchQuery }) => {
 
   const handleLike = async (id: string) => {
     try {
-      const res = await fetch(`https://eserver.siibarnut.com/products/${id}/like`, {
+      const res = await fetch(`http://localhost:8000/products/${id}/like`, {
         method: "POST",
       });
       const data = await res.json();
@@ -144,7 +146,7 @@ const ProductsPage: React.FC<{ searchQuery: string }> = ({ searchQuery }) => {
   }, [searchQuery]);
 
   return (
-    <Box sx={{ display: "flex", flexDirection: "column", margin: "20px" }}>
+    <Box sx={{ display: "flex", flexDirection: "column", margin: "20px 20px 7rem 20px" }}>
       <Grid container spacing={3}>
         {filteredProducts.map((product) => (
           <Grid item key={product._id} xs={6} sm={4} md={3} lg={2}>
@@ -161,7 +163,7 @@ const ProductsPage: React.FC<{ searchQuery: string }> = ({ searchQuery }) => {
               <CardMedia
                 component="img"
                 height="88"
-                image={`https://eserver.siibarnut.com${product.imageUrl}`}
+                image={`http://localhost:8000${product.imageUrl}`}
                 alt={product.name}
               />
               <CardContent sx={{ margin: 0, padding: 1 }}>
@@ -215,31 +217,73 @@ const ProductsPage: React.FC<{ searchQuery: string }> = ({ searchQuery }) => {
                   {product.description}
                 </Typography>
 
-                <Typography
-                  variant="body2"
-                  sx={{
-                    whiteSpace: "nowrap",
-                    overflow: "hidden",
-                    textOverflow: "ellipsis",
-                    fontSize: "10px",
-                    color: "#6030ff",
-                  }}
-                >
-                  {product.shopId}
-                </Typography>
+                <Box sx={{ display: "flex", gap: "5px", overflowX: "auto" }}>
+                  <Typography
+                    variant="body2"
+                    sx={{
+                      whiteSpace: "nowrap",
+                      overflow: "hidden",
+                      textOverflow: "ellipsis",
+                      fontSize: "10px",
+                      color: "black",
+                      width: "fit-content",
+                      backgroundColor: "#eeeeee",
+                      textTransform: "uppercase",
+                      padding: "2px",
+                    }}
+                  >
+                    {product.shop?.shopName || "Unknown Shop"}
+                  </Typography>
+                  <Typography
+                    variant="body2"
+                    sx={{
+                      whiteSpace: "nowrap",
+                      overflow: "hidden",
+                      textOverflow: "ellipsis",
+                      fontSize: "10px",
+                      color: "black",
+                      width: "fit-content",
+                      backgroundColor: "#eeeeee",
+                      textTransform: "uppercase",
+                      padding: "2px",
+                    }}
+                  >
+                    {product.shop?.country || "Unknown Shop"}
+                  </Typography>
+                  <Typography
+                    variant="body2"
+                    sx={{
+                      whiteSpace: "nowrap",
+                      overflow: "hidden",
+                      textOverflow: "ellipsis",
+                      fontSize: "10px",
+                      textTransform: "uppercase",
+                      backgroundColor: "#eeeeee",
+                      color: "black",
+                      width: "fit-content",
+                      padding: "2px",
+                    }}
+                  >
+                    {product.category}
+                  </Typography>
+                </Box>
 
-                <Typography
-                  variant="body1"
-                  sx={{
-                    color: "#6030ff",
-                    fontSize: "16px",
-                    fontWeight: "bold",
-                    marginTop: "5px",
-                  }}
-                >
-                  Price: {product.price} Pi
-                </Typography>
               </CardContent>
+              <Typography
+                variant="body1"
+                sx={{
+                  color: "#8529ff",
+                  fontSize: "14px",
+                  fontWeight: "bold",
+                  // marginTop: "5px",
+                  // textAlign: "center",
+                  marginLeft: "10px",
+                  marginBottom: "5px",
+                  // backgroundColor: "#8529ff",
+                }}
+              >
+                Price: {product.price} Pi
+              </Typography>
             </Card>
           </Grid>
         ))}
@@ -290,7 +334,7 @@ const ProductsPage: React.FC<{ searchQuery: string }> = ({ searchQuery }) => {
                   <CardMedia
                     component="img"
                     height="120"
-                    image={`https://eserver.siibarnut.com${product.imageUrl}`}
+                    image={`http://localhost:8000${product.imageUrl}`}
                     alt={product.name}
                   />
                   <CardContent sx={{ padding: 1 }}>
