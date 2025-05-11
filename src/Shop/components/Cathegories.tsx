@@ -1,13 +1,14 @@
+// Cathegories.tsx
 import React from "react";
 import { Box, Button } from "@mui/material";
-import { useTranslation } from "react-i18next"; // Import useTranslation
+import { useTranslation } from "react-i18next";
 import clothes from "../../imges/statics/clothes.svg";
 import electronics from "../../imges/statics/electronics.svg";
 import shoes from "../../imges/statics/shoes.svg";
 import house from "../../imges/statics/house.svg";
 
-export default function Cathegories() {
-  const { t } = useTranslation(); // Get translation function
+export default function Cathegories({ onCategorySelect }: { onCategorySelect: (category: string) => void }) {
+  const { t } = useTranslation();
 
   return (
     <Box sx={{ margin: "5px 20px", fontSize: "12px" }}>
@@ -17,19 +18,19 @@ export default function Cathegories() {
       </Box>
       <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center", gap: "10px", color: "gray" }}>
         <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
-          <Button><img className="icocat" src={house} alt="House" /></Button>
+          <Button onClick={() => onCategorySelect("houses")}><img className="icocat" src={house} alt="House" /></Button>
           {t("houses")}
         </Box>
         <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
-          <Button><img className="icocat" src={shoes} alt="Cars" /></Button>
+          <Button onClick={() => onCategorySelect("cars")}><img className="icocat" src={shoes} alt="Cars" /></Button>
           {t("cars")}
         </Box>
         <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
-          <Button><img className="icocat" src={clothes} alt="Clothes" /></Button>
+          <Button onClick={() => onCategorySelect("clothes")}><img className="icocat" src={clothes} alt="Clothes" /></Button>
           {t("clothes")}
         </Box>
         <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
-          <Button><img className="icocat" src={electronics} alt="Electronics" /></Button>
+          <Button onClick={() => onCategorySelect("electronics")}><img className="icocat" src={electronics} alt="Electronics" /></Button>
           {t("electronics")}
         </Box>
       </Box>

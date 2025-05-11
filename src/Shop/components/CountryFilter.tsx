@@ -4,12 +4,15 @@ import { useTranslation } from "react-i18next";
 
 interface Shop {
   country: string;
-  // You can extend this with other fields if needed
 }
 
-export default function Products() {
+interface Props {
+  activeCountry: string;
+  onCountrySelect: (country: string) => void;
+}
+
+export default function CountryFilter({ activeCountry, onCountrySelect }: Props) {
   const { t } = useTranslation();
-  const [activeButton, setActiveButton] = useState<string>("All");
   const [countries, setCountries] = useState<string[]>([]);
 
   useEffect(() => {
@@ -18,9 +21,8 @@ export default function Products() {
         const response = await fetch("http://localhost:8000/shops");
         const data = await response.json();
         if (data?.shops) {
-          const uniqueCountries = [
-            ...new Set(data.shops.map((shop: Shop) => shop.country)),
-          ];
+          // Ensure uniqueness by using a Set, and then convert it back to an array
+          const uniqueCountries = [...new Set(data.shops.map((shop: Shop) => shop.country))];
           setCountries(uniqueCountries);
         }
       } catch (error) {
@@ -29,10 +31,10 @@ export default function Products() {
     };
 
     fetchShops();
-  }, []);
+  }, []); // Empty dependency array ensures the effect runs only once when the component mounts
 
   const handleButtonClick = (country: string) => {
-    setActiveButton(country);
+    onCountrySelect(country);
   };
 
   return (
@@ -51,8 +53,8 @@ export default function Products() {
       >
         <Button
           sx={{
-            backgroundColor: activeButton === "All" ? "blue" : "#eeeeee",
-            color: activeButton === "All" ? "white" : "#454545",
+            backgroundColor: activeCountry === "All" ? "blue" : "#eeeeee",
+            color: activeCountry === "All" ? "white" : "#454545",
             borderRadius: "20px",
             whiteSpace: "nowrap",
             minWidth: "auto",
@@ -67,8 +69,8 @@ export default function Products() {
           <Button
             key={country}
             sx={{
-              backgroundColor: activeButton === country ? "blue" : "#eeeeee",
-              color: activeButton === country ? "white" : "#454545",
+              backgroundColor: activeCountry === country ? "blue" : "#eeeeee",
+              color: activeCountry === country ? "white" : "#454545",
               borderRadius: "20px",
               whiteSpace: "nowrap",
               minWidth: "auto",
