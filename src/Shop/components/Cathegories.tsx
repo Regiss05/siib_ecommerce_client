@@ -29,25 +29,25 @@ export default function Cathegories({ onCategorySelect }: CathegoriesProps) {
           <Button onClick={() => onCategorySelect("house")}>
             <img className="icocat" src={house} alt="House" />
           </Button>
-          {t("houses")}
+          {t("house")}
         </Box>
         <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
           <Button onClick={() => onCategorySelect("car")}>
-            <img className="icocat" src={shoes} alt="Cars" />
+            <img className="icocat" src={shoes} alt="Car" />
           </Button>
-          {t("cars")}
+          {t("car")}
         </Box>
         <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
           <Button onClick={() => onCategorySelect("clothe")}>
-            <img className="icocat" src={clothes} alt="Clothes" />
+            <img className="icocat" src={clothes} alt="Clothe" />
           </Button>
-          {t("clothes")}
+          {t("clothe")}
         </Box>
         <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
           <Button onClick={() => onCategorySelect("electronic")}>
-            <img className="icocat" src={electronics} alt="Electronics" />
+            <img className="icocat" src={electronics} alt="Electronic" />
           </Button>
-          {t("electronics")}
+          {t("electronic")}
         </Box>
       </Box>
     </Box>
