@@ -31,7 +31,7 @@ const ProductPopup: React.FC<ProductPopupProps> = ({ open, onClose, products }) 
                 <CardMedia
                   component="img"
                   height="100"
-                  image={`http://localhost:8000${product.imageUrl}`}
+                  image={`https://eserver.siibarnut.com${product.imageUrl}`}
                   alt={product.name}
                 />
                 <CardContent>
