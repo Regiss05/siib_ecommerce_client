@@ -13,7 +13,6 @@ import { useNavigate } from "react-router-dom";
 import CountryFilter from "./CountryFilter";
 import Cathegories from "./Cathegories"; // Make sure the import path is correct
 import ImageSlider from "./ImageSlider";
-import ProductPopup from "./ProductPopup";
 
 export type Product = {
   _id: string;
@@ -43,7 +42,7 @@ const ProductsPage: React.FC<{ searchQuery: string }> = ({ searchQuery }) => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch("https://eserver.siibarnut.com/products")
+    fetch("http://localhost:8000/products")
       .then((res) => res.json())
       .then((data) => {
         console.log("Fetched products:", data.products);
@@ -80,7 +79,7 @@ const ProductsPage: React.FC<{ searchQuery: string }> = ({ searchQuery }) => {
 
   const handleLike = async (id: string) => {
     try {
-      const res = await fetch(`https://eserver.siibarnut.com/products/${id}/like`, {
+      const res = await fetch(`http://localhost:8000/products/${id}/like`, {
         method: "POST",
       });
       const data = await res.json();
@@ -124,7 +123,6 @@ const ProductsPage: React.FC<{ searchQuery: string }> = ({ searchQuery }) => {
 
   return (
     <Box>
-      <ProductPopup open={showPopup} onClose={handleClosePopup} products={products} />
       <Cathegories onCategorySelect={setActiveCategory} />
       <ImageSlider />
       <CountryFilter
@@ -148,7 +146,7 @@ const ProductsPage: React.FC<{ searchQuery: string }> = ({ searchQuery }) => {
                 <CardMedia
                   component="img"
                   height="88"
-                  image={`https://eserver.siibarnut.com${product.imageUrl}`}
+                  image={`http://localhost:8000${product.imageUrl}`}
                   alt={product.name}
                 />
                 <CardContent sx={{ margin: 0, padding: 1 }}>

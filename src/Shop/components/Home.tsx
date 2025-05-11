@@ -130,7 +130,6 @@ export default function Home() {
     <Box>
       <Header user={user} onSignIn={signIn} onSignOut={signOut} setSearchQuery={setSearchQuery} />
       <MyCard searchQuery={searchQuery} />
-
       {/* <Footer /> */}
       {/* <Button onClick={signIn}>Sign in</Button>
       {/* <Route path="/" element={<ButtonSlider />} /> */}
