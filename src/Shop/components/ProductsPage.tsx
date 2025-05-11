@@ -118,8 +118,10 @@ const ProductsPage: React.FC<{ searchQuery: string }> = ({ searchQuery }) => {
     (product) =>
       (searchQuery === "" || searchQuery === "show_all" || product.name.toLowerCase().includes(searchQuery.toLowerCase())) &&
       (activeCountry === "All" || product.shop?.country === activeCountry) &&
-      (activeCategory === "All" || product.category === activeCategory)
-  );  
+      (activeCategory === "All" ||
+        product.category.toLowerCase().includes(activeCategory.toLowerCase()) ||
+        activeCategory.toLowerCase().includes(product.category.toLowerCase()))
+  );
 
   return (
     <Box>

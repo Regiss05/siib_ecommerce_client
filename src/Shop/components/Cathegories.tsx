@@ -26,28 +26,28 @@ export default function Cathegories({ onCategorySelect }: CathegoriesProps) {
           <Button sx={{color: "#362fff", fontWeight: "bold"}} onClick={() => onCategorySelect("All")}>All</Button>
         </Box>
         <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
-          <Button onClick={() => onCategorySelect("house")}>
-            <img className="icocat" src={house} alt="House" />
+          <Button onClick={() => onCategorySelect("houses")}>
+            <img className="icocat" src={house} alt="Houses" />
           </Button>
-          {t("house")}
+          {t("houses")}
         </Box>
         <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
-          <Button onClick={() => onCategorySelect("car")}>
-            <img className="icocat" src={shoes} alt="Car" />
+          <Button onClick={() => onCategorySelect("cars")}>
+            <img className="icocat" src={shoes} alt="cars" />
           </Button>
-          {t("car")}
+          {t("cars")}
         </Box>
         <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
-          <Button onClick={() => onCategorySelect("clothe")}>
-            <img className="icocat" src={clothes} alt="Clothe" />
+          <Button onClick={() => onCategorySelect("clothes")}>
+            <img className="icocat" src={clothes} alt="Clothes" />
           </Button>
-          {t("clothe")}
+          {t("clothes")}
         </Box>
         <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
-          <Button onClick={() => onCategorySelect("electronic")}>
-            <img className="icocat" src={electronics} alt="Electronic" />
+          <Button onClick={() => onCategorySelect("electronics")}>
+            <img className="icocat" src={electronics} alt="electronics" />
           </Button>
-          {t("electronic")}
+          {t("electronics")}
         </Box>
       </Box>
     </Box>
