@@ -18,7 +18,7 @@ export default function CountryFilter({ activeCountry, onCountrySelect }: Props)
   useEffect(() => {
     const fetchShops = async () => {
       try {
-        const response = await fetch("http://localhost:8000/shops");
+        const response = await fetch("https://eserver.siibarnut.com/shops");
         const data = await response.json();
         if (data?.shops) {
           // Ensure uniqueness by using a Set, and then convert it back to an array
