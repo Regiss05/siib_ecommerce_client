@@ -13,6 +13,7 @@ import { useNavigate } from "react-router-dom";
 import CountryFilter from "./CountryFilter";
 import Cathegories from "./Cathegories"; // Make sure the import path is correct
 import ImageSlider from "./ImageSlider";
+import ProductPopup from "./ProductPopup";
 
 export type Product = {
   _id: string;
@@ -37,11 +38,12 @@ const ProductsPage: React.FC<{ searchQuery: string }> = ({ searchQuery }) => {
   const [likedProducts, setLikedProducts] = useState<Product[]>([]);
   const [activeCountry, setActiveCountry] = useState<string>("All");
   const [activeCategory, setActiveCategory] = useState<string>("All");
+  const [showPopup, setShowPopup] = useState(false);
 
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch("https://eserver.siibarnut.com/products")
+    fetch("http://localhost:8000/products")
       .then((res) => res.json())
       .then((data) => {
         console.log("Fetched products:", data.products);
@@ -58,6 +60,18 @@ const ProductsPage: React.FC<{ searchQuery: string }> = ({ searchQuery }) => {
       .catch((error) => console.error("Error fetching products:", error));
   }, []);
 
+  useEffect(() => {
+    if (searchQuery === "show_all") {
+      setShowPopup(true);
+    }
+  }, [searchQuery]);
+
+  const handleClosePopup = () => {
+    setShowPopup(false);
+    // 👇 Reset the search query to show all products again
+    setSearchQuery("");
+  };
+
   const isNewProduct = (createdAt: string) => {
     const createdTime = new Date(createdAt).getTime();
     const currentTime = new Date().getTime();
@@ -66,7 +80,7 @@ const ProductsPage: React.FC<{ searchQuery: string }> = ({ searchQuery }) => {
 
   const handleLike = async (id: string) => {
     try {
-      const res = await fetch(`https://eserver.siibarnut.com/products/${id}/like`, {
+      const res = await fetch(`http://localhost:8000/products/${id}/like`, {
         method: "POST",
       });
       const data = await res.json();
@@ -103,13 +117,14 @@ const ProductsPage: React.FC<{ searchQuery: string }> = ({ searchQuery }) => {
 
   const filteredProducts = products.filter(
     (product) =>
-      product.name.toLowerCase().includes(searchQuery.toLowerCase()) &&
+      (searchQuery === "" || searchQuery === "show_all" || product.name.toLowerCase().includes(searchQuery.toLowerCase())) &&
       (activeCountry === "All" || product.shop?.country === activeCountry) &&
       (activeCategory === "All" || product.category === activeCategory)
-  );
+  );  
 
   return (
     <Box>
+      <ProductPopup open={showPopup} onClose={handleClosePopup} products={products} />
       <Cathegories onCategorySelect={setActiveCategory} />
       <ImageSlider />
       <CountryFilter
@@ -133,7 +148,7 @@ const ProductsPage: React.FC<{ searchQuery: string }> = ({ searchQuery }) => {
                 <CardMedia
                   component="img"
                   height="88"
-                  image={`https://eserver.siibarnut.com${product.imageUrl}`}
+                  image={`http://localhost:8000${product.imageUrl}`}
                   alt={product.name}
                 />
                 <CardContent sx={{ margin: 0, padding: 1 }}>

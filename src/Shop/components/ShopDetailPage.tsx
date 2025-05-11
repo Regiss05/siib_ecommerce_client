@@ -38,13 +38,13 @@ const ShopDetailPage: React.FC = () => {
 
   useEffect(() => {
     // Fetch shop details
-    fetch(`https://eserver.siibarnut.com/shops/${shopId}`)
+    fetch(`http://localhost:8000/shops/${shopId}`)
       .then((res) => res.json())
       .then((data) => setShop(data.shop))
       .catch((err) => console.error("Error fetching shop:", err));
 
     // Fetch products belonging to the shop
-    fetch(`https://eserver.siibarnut.com/products?shopId=${shopId}`)
+    fetch(`http://localhost:8000/products?shopId=${shopId}`)
       .then((res) => res.json())
       .then((data) => setProducts(data.products))
       .catch((err) => console.error("Error fetching products:", err));
@@ -71,7 +71,7 @@ const ShopDetailPage: React.FC = () => {
         {products.map((product) => (
           <Grid item xs={12} sm={6} md={4} key={product._id}>
             <Card>
-              <img src={`https://eserver.siibarnut.com${product.imageUrl}`} alt={product.name} width="100%" />
+              <img src={`http://localhost:8000${product.imageUrl}`} alt={product.name} width="100%" />
               <CardContent>
                 <Typography variant="h6">{product.name}</Typography>
                 <Typography variant="body2">{product.description}</Typography>
