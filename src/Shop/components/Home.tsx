@@ -3,9 +3,6 @@ import axios from 'axios';
 import SignIn from "./SignIn";
 import Header from "./Header";
 import { Box } from "@mui/material";
-import Cathegories from "./Cathegories";
-import Products from "./Products";
-import ImageSlider from "./ImageSlider";
 // import ProductCard from './ProductCard';
 import MyCard from './ProductsPage';
 
@@ -132,9 +129,6 @@ export default function Home() {
   return (
     <Box>
       <Header user={user} onSignIn={signIn} onSignOut={signOut} setSearchQuery={setSearchQuery} />
-      <Cathegories />
-      <ImageSlider />
-      <Products />
       <MyCard searchQuery={searchQuery} />
 
       {/* <Footer /> */}

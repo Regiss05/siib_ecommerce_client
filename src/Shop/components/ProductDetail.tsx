@@ -20,6 +20,12 @@ interface Product {
   imageUrl: string;
   likes?: number;
   createdAt: string;
+  shopId: {
+    _id: string;
+    shopName: string;  // This is correctly being populated
+    fullName: string;  // Ensure fullName is here as well
+    country: string;
+  } | null;
 }
 
 const ProductDetail: React.FC = () => {
@@ -132,7 +138,7 @@ const ProductDetail: React.FC = () => {
         <CardMedia
           component="img"
           height="280"
-          image={`https://eserver.siibarnut.com/${product.imageUrl}`}
+          image={`https://eserver.siibarnut.com${product.imageUrl}`}
           alt={product.name}
         />
         <CardContent className="product-detail">

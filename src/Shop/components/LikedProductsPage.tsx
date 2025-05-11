@@ -7,8 +7,18 @@ interface Product {
   _id: string;
   name: string;
   description: string;
+  category: string;
   price: number;
+  availableStock: number;
   imageUrl: string;
+  likes?: number;
+  createdAt: string;
+  shopId: {
+    _id: string;
+    shopName: string;  // This is correctly being populated
+    fullName: string;  // Ensure fullName is here as well
+    country: string;
+  } | null;
 }
 
 const LikedProductsPage: React.FC = () => {
@@ -36,7 +46,7 @@ const LikedProductsPage: React.FC = () => {
               <CardMedia
                 component="img"
                 height="88"
-                image={`https://eserver.siibarnut.com/${product.imageUrl}`}
+                image={`https://eserver.siibarnut.com${product.imageUrl}`}
                 alt={product.name}
               />
               <CardContent sx={{ margin: 0, padding: 1 }}>
