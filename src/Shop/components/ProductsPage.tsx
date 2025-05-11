@@ -12,6 +12,7 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import { useNavigate } from "react-router-dom";
 import CountryFilter from "./CountryFilter";
 import Cathegories from "./Cathegories"; // Make sure the import path is correct
+import ImageSlider from "./ImageSlider";
 
 export type Product = {
   _id: string;
@@ -110,6 +111,7 @@ const ProductsPage: React.FC<{ searchQuery: string }> = ({ searchQuery }) => {
   return (
     <Box>
       <Cathegories onCategorySelect={setActiveCategory} />
+      <ImageSlider />
       <CountryFilter
         activeCountry={activeCountry}
         onCountrySelect={setActiveCountry}
@@ -194,6 +196,8 @@ const ProductsPage: React.FC<{ searchQuery: string }> = ({ searchQuery }) => {
                         backgroundColor: "#eeeeee",
                         textTransform: "uppercase",
                         padding: "2px",
+                        height: "13px",
+                        width: "30%",
                       }}
                     >
                       {product.shop?.shopName || "Unknown Shop"}
@@ -206,6 +210,8 @@ const ProductsPage: React.FC<{ searchQuery: string }> = ({ searchQuery }) => {
                         backgroundColor: "#eeeeee",
                         textTransform: "uppercase",
                         padding: "2px",
+                        height: "13px",
+                        width: "30%",
                       }}
                     >
                       {product.shop?.country || "Unknown Country"}
@@ -218,6 +224,8 @@ const ProductsPage: React.FC<{ searchQuery: string }> = ({ searchQuery }) => {
                         backgroundColor: "#eeeeee",
                         textTransform: "uppercase",
                         padding: "2px",
+                        height: "13px",
+                        width: "30%",
                       }}
                     >
                       {product.category}
