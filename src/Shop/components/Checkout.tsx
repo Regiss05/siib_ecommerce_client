@@ -19,6 +19,7 @@ const Checkout = () => {
   const orderFees = totalPrice * 0.12; // 12% of Amount
   const tax = totalPrice * 0.18; // 18% of Amount
   const finalTotal = totalPrice + orderFees + tax; // Total = Amount + Order Fees + Tax
+  const backendUrl = process.env.REACT_APP_BACKEND_URL;
 
   const handleCheckout = async () => {
     if (!shippingAddress.trim()) {
@@ -34,7 +35,7 @@ const Checkout = () => {
 
     try {
       const user = JSON.parse(userData);
-      const response = await axios.post("https://eserver.siibarnut.com/cart/checkout", { userId: user.uid });
+      const response = await axios.post(`${backendUrl}/cart/checkout`, { userId: user.uid });
 
       if (response.status === 200) {
         console.log("Order ID:", response.data.orderId);
@@ -62,7 +63,7 @@ const Checkout = () => {
         {cart.map((item) => (
           <Box sx={{ border: "1px solid #ddd", padding: "10px", my: "7px" }} key={item.productId}>
             <Box sx={{ display: "flex", gap: 2 }}>
-              <CardMedia component="img" image={`https://eserver.siibarnut.com/${item.imageUrl}`} 
+              <CardMedia component="img" image={`${backendUrl}/${item.imageUrl}`} 
                 sx={{ minWidth: 110, maxWidth: 110, height: 80, filter: "grayscale(100%)" }}
               />
               <Box sx={{ color: "gray" }}>

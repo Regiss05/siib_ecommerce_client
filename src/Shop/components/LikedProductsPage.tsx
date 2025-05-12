@@ -24,6 +24,7 @@ interface Product {
 const LikedProductsPage: React.FC = () => {
   const location = useLocation();
   const { liked } = location.state || { liked: [] };  // Get liked products passed via state
+  const backendUrl = process.env.REACT_APP_BACKEND_URL;
 
   // If there are no liked products
   if (liked.length === 0) {
@@ -46,7 +47,7 @@ const LikedProductsPage: React.FC = () => {
               <CardMedia
                 component="img"
                 height="88"
-                image={`https://eserver.siibarnut.com${product.imageUrl}`}
+                image={`${backendUrl}${product.imageUrl}`}
                 alt={product.name}
               />
               <CardContent sx={{ margin: 0, padding: 1 }}>

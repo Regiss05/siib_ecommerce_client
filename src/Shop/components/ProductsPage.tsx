@@ -40,20 +40,17 @@ const ProductsPage: React.FC<{ searchQuery: string }> = ({ searchQuery }) => {
   const [showPopup, setShowPopup] = useState(false);
 
   const navigate = useNavigate();
+  const backendUrl = process.env.REACT_APP_BACKEND_URL;
 
   useEffect(() => {
-    fetch("https://eserver.siibarnut.com/products")
+    fetch(`${backendUrl}/products`)
       .then((res) => res.json())
       .then((data) => {
         console.log("Fetched products:", data.products);
         setProducts(data.products);
 
-        const likedIds = JSON.parse(
-          localStorage.getItem("likedProductIds") || "[]"
-        );
-        const liked = data.products.filter((p: Product) =>
-          likedIds.includes(p._id)
-        );
+        const likedIds = JSON.parse(localStorage.getItem("likedProductIds") || "[]");
+        const liked = data.products.filter((p: Product) => likedIds.includes(p._id));
         setLikedProducts(liked);
       })
       .catch((error) => console.error("Error fetching products:", error));
@@ -65,12 +62,6 @@ const ProductsPage: React.FC<{ searchQuery: string }> = ({ searchQuery }) => {
     }
   }, [searchQuery]);
 
-  const handleClosePopup = () => {
-    setShowPopup(false);
-    // 👇 Reset the search query to show all products again
-    setSearchQuery("");
-  };
-
   const isNewProduct = (createdAt: string) => {
     const createdTime = new Date(createdAt).getTime();
     const currentTime = new Date().getTime();
@@ -79,7 +70,7 @@ const ProductsPage: React.FC<{ searchQuery: string }> = ({ searchQuery }) => {
 
   const handleLike = async (id: string) => {
     try {
-      const res = await fetch(`https://eserver.siibarnut.com/products/${id}/like`, {
+      const res = await fetch(`${backendUrl}/products/${id}/like`, {
         method: "POST",
       });
       const data = await res.json();
@@ -90,9 +81,7 @@ const ProductsPage: React.FC<{ searchQuery: string }> = ({ searchQuery }) => {
       setProducts(updatedProducts);
 
       const likedProduct = updatedProducts.find((p) => p._id === id);
-      const currentLikedIds = JSON.parse(
-        localStorage.getItem("likedProductIds") || "[]"
-      );
+      const currentLikedIds = JSON.parse(localStorage.getItem("likedProductIds") || "[]");
 
       if (likedProduct && likedProduct.likes && likedProduct.likes > 0) {
         if (!currentLikedIds.includes(id)) {
@@ -148,7 +137,7 @@ const ProductsPage: React.FC<{ searchQuery: string }> = ({ searchQuery }) => {
                 <CardMedia
                   component="img"
                   height="88"
-                  image={`https://eserver.siibarnut.com${product.imageUrl}`}
+                  image={`${backendUrl}${product.imageUrl}`}
                   alt={product.name}
                 />
                 <CardContent sx={{ margin: 0, padding: 1 }}>

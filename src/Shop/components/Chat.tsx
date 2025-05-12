@@ -44,8 +44,10 @@ const ChatScreen = () => {
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
 
+  const backendUrl = process.env.REACT_APP_BACKEND_URL;
+
   const userId = "65af3456789abcdef0123456";
-  const socket = useRef(io("https://eserver.siibarnut.com"));
+  const socket = useRef(io(`${backendUrl}`));
 
   useEffect(() => {
     fetchMessages();
@@ -58,7 +60,7 @@ const ChatScreen = () => {
 
   const fetchMessages = async () => {
     try {
-      const response = await axios.get("https://eserver.siibarnut.com/chat/messages");
+      const response = await axios.get(`${backendUrl}/chat/messages`);
       setMessages(response.data.messages);
     } catch (error) {
       console.error("Error fetching messages:", error);
@@ -87,7 +89,7 @@ const ChatScreen = () => {
     if (!newMessage.trim()) return;
 
     try {
-      await axios.post("https://eserver.siibarnut.com/chat/messages", {
+      await axios.post(`${backendUrl}/chat/messages`, {
         senderId: userId,
         text: newMessage,
       });

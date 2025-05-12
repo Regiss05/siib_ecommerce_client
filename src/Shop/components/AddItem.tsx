@@ -16,8 +16,10 @@ const AddItem = () => {
   const [shops, setShops] = useState([]); // ✅ Stores available shops
   const [imageFile, setImageFile] = useState<File | null>(null);
 
+  const backendUrl = process.env.REACT_APP_BACKEND_URL;
+
   useEffect(() => {
-    axios.get("https://eserver.siibarnut.com/shops")
+    axios.get(`${backendUrl}/shops`)
       .then((res) => setShops(res.data.shops))
       .catch((error) => console.error("Error fetching shops:", error));
   }, []);
@@ -43,7 +45,7 @@ const AddItem = () => {
     formData.append("image", imageFile);
 
     try {
-      const response = await fetch("https://eserver.siibarnut.com/products/add", {
+      const response = await fetch(`${backendUrl}/products/add`, {
         method: "POST",
         body: formData,
       });

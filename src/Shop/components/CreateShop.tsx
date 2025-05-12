@@ -90,6 +90,7 @@ const CreateShop = () => {
 
 
   const { enqueueSnackbar } = useSnackbar();
+  const backendUrl = process.env.REACT_APP_BACKEND_URL;
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
@@ -134,7 +135,7 @@ const CreateShop = () => {
     }
 
     try {
-      const response = await axios.post("https://eserver.siibarnut.com/shops/add", formDataToSend, {
+      const response = await axios.post(`${backendUrl}/shops/add`, formDataToSend, {
         headers: {
           "Content-Type": "multipart/form-data",
         },

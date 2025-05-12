@@ -15,10 +15,12 @@ export default function CountryFilter({ activeCountry, onCountrySelect }: Props)
   const { t } = useTranslation();
   const [countries, setCountries] = useState<string[]>([]);
 
+  const backendUrl = process.env.REACT_APP_BACKEND_URL;
+
   useEffect(() => {
     const fetchShops = async () => {
       try {
-        const response = await fetch("https://eserver.siibarnut.com/shops");
+        const response = await fetch(`${backendUrl}/shops`);
         const data = await response.json();
         if (data?.shops) {
           // Ensure uniqueness by using a Set, and then convert it back to an array
