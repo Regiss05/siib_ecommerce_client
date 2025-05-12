@@ -10,7 +10,7 @@ import cart from "../../imges/statics/cart.svg";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-interface Product {
+export type Product = {
   _id: string;
   name: string;
   description: string;
@@ -20,13 +20,13 @@ interface Product {
   imageUrl: string;
   likes?: number;
   createdAt: string;
-  shopId: {
+  shop: {
     _id: string;
-    shopName: string;  // This is correctly being populated
-    fullName: string;  // Ensure fullName is here as well
+    shopName: string;
+    fullName: string;
     country: string;
   } | null;
-}
+};
 
 const ProductDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -95,13 +95,13 @@ const ProductDetail: React.FC = () => {
 
   const addToCart = async () => {
     if (!product) return;
-  
+
     const user = getUserFromLocalStorage();
     if (!user || !user.userId) {
       toast.error("Please sign in to add items to your cart.");
       return;
     }
-  
+
     try {
       const response = await fetch(`${backendUrl}/cart/add`, {
         method: "POST",
@@ -115,7 +115,7 @@ const ProductDetail: React.FC = () => {
           quantity: 1,
         }),
       });
-  
+
       const data = await response.json();
       if (response.ok) {
         toast.success("Item added to cart!");
@@ -128,7 +128,7 @@ const ProductDetail: React.FC = () => {
       toast.error("Error adding to cart.");
     }
   };
-  
+
 
   if (!product) return <Typography>Loading...</Typography>;
 
@@ -143,7 +143,7 @@ const ProductDetail: React.FC = () => {
           alt={product.name}
         />
         <CardContent className="product-detail">
-          <IconButton
+          {/* <IconButton
             sx={{
               backgroundColor: "white",
               position: "absolute",
@@ -157,7 +157,7 @@ const ProductDetail: React.FC = () => {
             }}
           >
             <FavoriteIcon />
-          </IconButton>
+          </IconButton> */}
 
           <IconButton
             onClick={() => navigate("/")}
@@ -207,8 +207,40 @@ const ProductDetail: React.FC = () => {
             </motion.div>
           </Box>
 
-          <Typography variant="h6" sx={{ fontWeight: "bold", borderBottom: "1px solid #9d9d9d", paddingBottom: "10px" }}>{product.name}</Typography>
-          <Typography variant="body1" sx={{ color: "#9d9d9d", marginTop: "10px" }}>{product.description}</Typography>
+          <Typography variant="h6" sx={{ fontWeight: "bold", paddingBottom: "10px" }}>{product.name}</Typography>
+
+          {/* <Box sx={{ display: "flex", gap: "5px", overflowX: "auto" }}>
+            <Typography
+              variant="body2"
+              sx={{
+                fontSize: "10px",
+                color: "black",
+                backgroundColor: "#eeeeee",
+                textTransform: "uppercase",
+                padding: "2px",
+                height: "13px",
+                width: "30%",
+              }}
+            >
+              {product.shop?.shopName || "Unknown Shop"}
+            </Typography>
+            <Typography
+              variant="body2"
+              sx={{
+                fontSize: "10px",
+                color: "black",
+                backgroundColor: "#eeeeee",
+                textTransform: "uppercase",
+                padding: "2px",
+                height: "13px",
+                width: "30%",
+              }}
+            >
+              {product.shop?.country || "Unknown Country"}
+            </Typography>
+          </Box> */}
+
+          <Typography variant="body1" sx={{ color: "#9d9d9d", marginTop: "10px", overflow: "auto", height: "300px" }}>{product.description}</Typography>
 
           <Box sx={{
             position: "absolute",
@@ -218,7 +250,9 @@ const ProductDetail: React.FC = () => {
             display: "flex",
             justifyContent: "space-between",
             width: "100%",
-            boxShadow: "0px -4px 10px rgba(0, 0, 0, 0.1)"
+            boxShadow: "0px -4px 10px rgba(0, 0, 0, 0.1)",
+            backgroundColor: "white",
+            zIndex: "99",
           }}>
             <Box sx={{ marginLeft: "1rem" }}>
               Price:

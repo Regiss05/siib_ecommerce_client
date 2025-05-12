@@ -115,10 +115,10 @@ const AddItem = () => {
             />
           </FormControl>
           <select className="selectform" value={shopId} onChange={(e) => setShopId(e.target.value)} required>
-            <option value="">Select a Shop</option>
+            <option className="option-shop" value="">Select a Shop</option>
             {shops.map((shop) => (
               // @ts-ignore
-              <option key={shop._id} value={shop._id}>{shop.name}</option>
+              <option className="option-shop" key={shop._id} value={shop._id}>{shop.name}</option>
             ))}
           </select>
 

@@ -37,7 +37,6 @@ const ProductsPage: React.FC<{ searchQuery: string }> = ({ searchQuery }) => {
   const [likedProducts, setLikedProducts] = useState<Product[]>([]);
   const [activeCountry, setActiveCountry] = useState<string>("All");
   const [activeCategory, setActiveCategory] = useState<string>("All");
-  const [showPopup, setShowPopup] = useState(false);
 
   const navigate = useNavigate();
   const backendUrl = process.env.REACT_APP_BACKEND_URL;
@@ -46,8 +45,11 @@ const ProductsPage: React.FC<{ searchQuery: string }> = ({ searchQuery }) => {
     fetch(`${backendUrl}/products`)
       .then((res) => res.json())
       .then((data) => {
-        console.log("Fetched products:", data.products);
-        setProducts(data.products);
+        const sorted = data.products.sort(
+          (a: Product, b: Product) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+        );
+        console.log("Fetched and sorted products:", sorted);
+        setProducts(sorted);
 
         const likedIds = JSON.parse(localStorage.getItem("likedProductIds") || "[]");
         const liked = data.products.filter((p: Product) => likedIds.includes(p._id));
@@ -55,12 +57,6 @@ const ProductsPage: React.FC<{ searchQuery: string }> = ({ searchQuery }) => {
       })
       .catch((error) => console.error("Error fetching products:", error));
   }, []);
-
-  useEffect(() => {
-    if (searchQuery === "show_all") {
-      setShowPopup(true);
-    }
-  }, [searchQuery]);
 
   const isNewProduct = (createdAt: string) => {
     const createdTime = new Date(createdAt).getTime();
@@ -141,7 +137,7 @@ const ProductsPage: React.FC<{ searchQuery: string }> = ({ searchQuery }) => {
                   alt={product.name}
                 />
                 <CardContent sx={{ margin: 0, padding: 1 }}>
-                  <IconButton
+                  {/* <IconButton
                     sx={{
                       backgroundColor: "white",
                       position: "absolute",
@@ -155,7 +151,7 @@ const ProductsPage: React.FC<{ searchQuery: string }> = ({ searchQuery }) => {
                     }}
                   >
                     <FavoriteIcon />
-                  </IconButton>
+                  </IconButton> */}
 
                   {isNewProduct(product.createdAt) && (
                     <Box
@@ -174,7 +170,16 @@ const ProductsPage: React.FC<{ searchQuery: string }> = ({ searchQuery }) => {
                     </Box>
                   )}
 
-                  <Typography variant="h6" sx={{ fontSize: "14px", fontWeight: "bold" }}>
+                  <Typography
+                    variant="h6"
+                    sx={{
+                      fontSize: "14px",
+                      fontWeight: "bold",
+                      whiteSpace: "nowrap",
+                      overflow: "hidden",
+                      textOverflow: "ellipsis",
+                    }}
+                  >
                     {product.name}
                   </Typography>
 
