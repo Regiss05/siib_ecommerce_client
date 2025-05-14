@@ -19,47 +19,53 @@ import { useSnackbar } from 'notistack';
 
 const countries = [
   {
-    name: 'Tanzania',
+    name: 'Tanzania 🇹🇿',
     code: '+255',
     flag: '🇹🇿',
     documents: ['TIN ', 'Brela Business Registration', 'Business License Number'],
     cities: ['Dar es Salaam', 'Arusha', 'Mwanza', 'Dodoma'],
   },
   {
-    name: 'Burundi',
+    name: 'Burundi 🇧🇮',
     code: '+257',
     flag: '🇧🇮',
     documents: ['NIF', 'Registre du Commerce', 'Patente'],
     cities: ['Bujumbura', 'Gitega', 'Ngozi', 'Muyinga'],
   },
   {
-    name: 'Rwanda',
+    name: 'Congo DRC ',
+    code: '+243',
+    flag: 'DRC',
+    documents: ['RCCM (Registre du Commerce et du Crédit Mobilier', 'Import/Export License',],
+    cities: ['Kinshasa', 'Mbuji-Mayi', 'Kananga', 'Lubumbashi'],
+  },
+  {
+    name: 'Rwanda 🇷🇼',
     code: '+250',
     flag: '🇷🇼',
     documents: ['TIN', 'RDB Registration', 'Trading License'],
     cities: ['Kigali', 'Butare', 'Gisenyi', 'Ruhengeri'],
   },
   {
-    name: 'Ivory Coast',
+    name: 'Benin 🇧🇯',
+    code: '+229',
+    flag: '🇧🇯',
+    documents: ['CIP'],
+    cities: ['Coronou', 'Parakou', 'Porto-Novo'],
+  },
+  {
+    name: 'Ivory Coast 🇨🇮',
     code: '+225',
     flag: '🇨🇮',
     documents: ['Numéro RCCM', 'Déclaration Fiscale d\'Existence', 'Agrément'],
     cities: ['Abidjan', 'Bouaké', 'Daloa', 'Yamoussoukro'],
   },
   {
-    name: 'South Africa',
+    name: 'South Africa 🇿🇦',
     code: '+27',
     flag: '🇿🇦',
     documents: ['Tax Registration Number', 'Company Registration Number', 'Business Permit'],
     cities: ['Johannesburg', 'Cape Town', 'Durban', 'Pretoria'],
-  },
-
-  {
-    name: 'Congo DRC',
-    code: '+243',
-    flag: 'DRC',
-    documents: ['RCCM (Registre du Commerce et du Crédit Mobilier', 'Import/Export License',],
-    cities: ['Kinshasa', 'Mbuji-Mayi', 'Kananga', 'Lubumbashi'],
   },
 ];
 
