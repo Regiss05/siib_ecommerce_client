@@ -128,11 +128,18 @@ body {
   border: 1px solid #ccc;
   border-radius: 4px;
   box-sizing: border-box;
+  transition: border-color 0.2s ease-in-out, background-color 0.2s ease-in-out;
 }
 
-.option-shop {
-  color: red;
-  background-color: #FF9A00;
+.selectform:focus {
+  border-color: #FF9A00;
+  background-color: #FFF3E0; /* light orange background */
+  outline: none;
+}
+
+.selectform option {
+  background-color: white;
+  color: black;
 }
 
 .selectform-content {
