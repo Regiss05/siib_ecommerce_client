@@ -33,7 +33,7 @@ const countries = [
     cities: ['Bujumbura', 'Gitega', 'Ngozi', 'Muyinga'],
   },
   {
-    name: 'Congo DRC ',
+    name: 'Congo DRC 🇨🇩',
     code: '+243',
     flag: 'DRC',
     documents: ['RCCM (Registre du Commerce et du Crédit Mobilier', 'Import/Export License',],

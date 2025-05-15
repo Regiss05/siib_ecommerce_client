@@ -16,10 +16,8 @@ const AddItem = () => {
   const [shops, setShops] = useState([]); // ✅ Stores available shops
   const [imageFile, setImageFile] = useState<File | null>(null);
 
-  const backendUrl = process.env.REACT_APP_BACKEND_URL;
-
   useEffect(() => {
-    axios.get(`${backendUrl}/shops`)
+    axios.get("http://localhost:8000/shops")
       .then((res) => setShops(res.data.shops))
       .catch((error) => console.error("Error fetching shops:", error));
   }, []);
@@ -45,7 +43,7 @@ const AddItem = () => {
     formData.append("image", imageFile);
 
     try {
-      const response = await fetch(`${backendUrl}/products/add`, {
+      const response = await fetch("http://localhost:8000/products/add", {
         method: "POST",
         body: formData,
       });
@@ -115,10 +113,10 @@ const AddItem = () => {
             />
           </FormControl>
           <select className="selectform" value={shopId} onChange={(e) => setShopId(e.target.value)} required>
-            <option className="option-shop" value="">Select a Shop</option>
+            <option value="">Select a Shop</option>
             {shops.map((shop) => (
               // @ts-ignore
-              <option className="option-shop" key={shop._id} value={shop._id}>{shop.name}</option>
+              <option key={shop._id} value={shop._id}>{shop.shopName}</option>
             ))}
           </select>
 

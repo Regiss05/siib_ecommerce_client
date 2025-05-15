@@ -30,7 +30,7 @@ body {
 .cardforyou {
   text-align: left;
   margin: auto 20px;
-  margin-top: 20px;
+  margin-top: 5px;
 }
 
 .icocat {
@@ -120,35 +120,6 @@ body {
   }
 }
 
-.selectform {
-  width: 100%;
-  padding: 12px 20px;
-  margin: 8px 0;
-  display: inline-block;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  box-sizing: border-box;
-  transition: border-color 0.2s ease-in-out, background-color 0.2s ease-in-out;
-}
-
-.selectform:focus {
-  border-color: #FF9A00;
-  background-color: #FFF3E0; /* light orange background */
-  outline: none;
-}
-
-.selectform option {
-  background-color: white;
-  color: black;
-}
-
-.selectform-content {
-  color: black;
-  padding: 12px 16px;
-  text-decoration: none;
-  display: block;
-}
-
 ::file-selector-button {
   background-color: #FF9A00;
   color: white;
@@ -157,16 +128,15 @@ body {
   border: none;
 }
 
-.form-det {
+/* .form-det {
   margin: 5px;
   width: 96%;
   padding: 12px 20px;
   margin: 8px 0;
-  display: inline-block;
   border: 1px solid #ccc;
   border-radius: 4px;
   box-sizing: border-box;
-}
+} */
 
 .form-container {
   padding: 10px;

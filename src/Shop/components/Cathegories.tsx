@@ -21,8 +21,8 @@ export default function Cathegories({ onCategorySelect }: CathegoriesProps) {
   const { t } = useTranslation();
 
   return (
-    <Box sx={{ margin: "5px 20px", fontSize: "12px" }}>
-      <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginTop: "20px", marginBottom: "20px" }}>
+    <Box sx={{ margin: "0px 20px", fontSize: "12px" }}>
+      <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginTop: "15px", marginBottom: "10px" }}>
         <Box sx={{ fontSize: "14px", color: "gray" }}>{t("categories")}</Box>
         {/* <Button sx={{ color: "#362FFF", fontWeight: "bold" }} onClick={() => onCategorySelect("All")}>
           {t("seeAll")}

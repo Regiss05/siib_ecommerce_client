@@ -62,10 +62,10 @@ export default function ImageSlider() {
   };
 
   return (
-    <Box sx={{ maxWidth: 800, flexGrow: 1, margin: "auto", textAlign: "center" }}>
+    <Box sx={{ maxWidth: 800, flexGrow: 1, margin: 0, textAlign: "center" }}>
       <h4 className="cardforyou">#Updatenews</h4>
 
-      <Box sx={{ position: "relative", margin: "1rem 0" }}>
+      <Box sx={{ position: "relative", margin: "10px 0" }}>
         <SwipeableViews index={activeStep} onChangeIndex={setActiveStep} enableMouseEvents>
           {images.map((step, index) => (
             <div key={index} style={{ display: "flex", justifyContent: "center", position: "relative" }}>
