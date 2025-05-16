@@ -63,7 +63,7 @@ export default function ImageSlider() {
 
   return (
     <Box sx={{ maxWidth: 800, flexGrow: 1, margin: 0, textAlign: "center" }}>
-      <h4 className="cardforyou">#Updatenews</h4>
+      <h4 className="cardforyou">#highlights</h4>
 
       <Box sx={{ position: "relative", margin: "10px 0" }}>
         <SwipeableViews index={activeStep} onChangeIndex={setActiveStep} enableMouseEvents>
