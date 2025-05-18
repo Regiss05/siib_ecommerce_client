@@ -119,7 +119,7 @@ const ProductsPage: React.FC<{ searchQuery: string }> = ({ searchQuery }) => {
       <Box sx={{ display: "flex", flexDirection: "column", margin: "20px 20px 7rem 20px" }}>
         <Grid container spacing={3}>
           {filteredProducts.map((product) => (
-            <Grid item key={product._id} xs={6} sm={4} md={3} lg={2}>
+            <Grid item key={product._id} xs={6} sm={6} md={3}>
               <Card
                 sx={{
                   maxWidth: "100%",
