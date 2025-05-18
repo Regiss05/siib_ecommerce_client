@@ -46,6 +46,7 @@ const ProductDetail: React.FC = () => {
   const [stockDisplay, setStockDisplay] = useState<string>("");
   const [showStockCount, setShowStockCount] = useState<boolean>(false);
   const [showMoreInfo, setShowMoreInfo] = useState<boolean>(false);
+  const [activeTab, setActiveTab] = useState<"description" | "similar">("description");
   const navigate = useNavigate();
   const backendUrl = process.env.REACT_APP_BACKEND_URL;
 
@@ -65,7 +66,6 @@ const ProductDetail: React.FC = () => {
     fetch(`${backendUrl}/products/${id}`)
       .then((res) => res.json())
       .then((data) => {
-        console.log("Fetched product:", data);
         setProduct({ ...data.product, shop: data.shop });
         if (data.product.availableStock > 0) {
           setStockDisplay("Available");
@@ -272,23 +272,66 @@ const ProductDetail: React.FC = () => {
             </Typography>
           )}
 
-          <Typography
-            variant="body1"
-            sx={{ color: "#9d9d9d", marginTop: "10px", overflow: "auto", height: "300px" }}
-          >
-            {product.description}
-          </Typography>
+          {/* Toggle Buttons */}
+          <Box sx={{ display: "flex", justifyContent: "center", gap: 2, marginTop: "20px", borderBottom: "1px solid #ddd" }}>
+            <Button
+              onClick={() => setActiveTab("description")}
+              sx={{
+                textTransform: "none",
+                backgroundColor: "transparent",
+                color: activeTab === "description" ? "#0b21f5" : "gray",
+                boxShadow: "none",
+                border: "none",
+                "&:hover": {
+                  backgroundColor: "transparent",
+                },
+              }}
+            >
+              Description
+            </Button>
+            <Button
+              onClick={() => setActiveTab("similar")}
+              sx={{
+                textTransform: "none",
+                backgroundColor: "transparent",
+                color: activeTab === "similar" ? "#0b21f5" : "gray",
+                boxShadow: "none",
+                border: "none",
+                "&:hover": {
+                  backgroundColor: "transparent",
+                },
+              }}
+            >
+              Similar Products
+            </Button>
+          </Box>
 
+          {/* Conditional Content */}
+          {activeTab === "description" ? (
+            <Typography
+              variant="body1"
+              sx={{ color: "#9d9d9d", marginTop: "10px", overflow: "auto", height: "300px" }}
+            >
+              {product.description}
+            </Typography>
+          ) : (
+            <Box sx={{ marginTop: "10px", height: "300px", overflow: "auto" }}>
+              <Typography>Similar products will appear here.</Typography>
+              {/* Add logic to fetch and render similar products here */}
+            </Box>
+          )}
+
+          {/* Bottom Bar */}
           <Box
             sx={{
-              position: "absolute",
-              bottom: "5rem",
+              padding: "10px",
+              position: "fixed",
+              bottom: "4rem",
               left: 0,
-              width: "100%",
+              width: "97%",
               backgroundColor: "white",
               display: "flex",
               justifyContent: "space-between",
-              padding: "1rem",
               boxShadow: "0px -4px 10px rgba(0, 0, 0, 0.1)",
               zIndex: 99,
             }}
@@ -307,7 +350,6 @@ const ProductDetail: React.FC = () => {
                 display: "flex",
                 alignItems: "center",
                 gap: "5px",
-                width: "11rem",
                 borderRadius: "10px",
               }}
             >
@@ -318,11 +360,10 @@ const ProductDetail: React.FC = () => {
         </CardContent>
       </Card>
 
-      {/* More Info Popup */}
+      {/* Shop More Info Popup */}
       <AnimatePresence>
         {showMoreInfo && (
           <Box>
-            {/* Blur Overlay */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -334,14 +375,12 @@ const ProductDetail: React.FC = () => {
                 left: 0,
                 right: 0,
                 bottom: 0,
-                backdropFilter: "blur(5px)", // actual blur effect
-                backgroundColor: "rgba(0, 0, 0, 0.3)", // darken background
-                zIndex: 999, // just behind the popup
+                backdropFilter: "blur(5px)",
+                backgroundColor: "rgba(0, 0, 0, 0.3)",
+                zIndex: 999,
               }}
-              onClick={() => setShowMoreInfo(false)} // optional: click to close
+              onClick={() => setShowMoreInfo(false)}
             />
-
-            {/* Popup */}
             <motion.div
               initial={{ y: "100%" }}
               animate={{ y: "50%" }}
@@ -413,7 +452,6 @@ const ProductDetail: React.FC = () => {
           </Box>
         )}
       </AnimatePresence>
-
     </Box>
   );
 };
