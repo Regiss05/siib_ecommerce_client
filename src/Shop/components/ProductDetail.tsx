@@ -187,7 +187,7 @@ const ProductDetail: React.FC = () => {
                     borderRadius: "15px",
                   }}
                 >
-                  {product.shop.country}
+                  {product.shop?.country}
                 </Typography>
               ) : (
                 <Typography variant="body2" sx={{ fontWeight: "bold", color: "gray" }}>
@@ -238,9 +238,9 @@ const ProductDetail: React.FC = () => {
 
           {product.shop ? (
             <Box sx={{ display: "flex", alignItems: "center", gap: "10px", marginTop: "10px" }}>
-              {product.shop.shopLogo && (
+              {product.shop?.shopLogo && (
                 <img
-                  src={`${backendUrl}/${product.shop.shopLogo}`}
+                  src={`${backendUrl}/${product.shop?.shopLogo}`}
                   alt="Shop Logo"
                   style={{
                     width: "60px",
@@ -254,10 +254,10 @@ const ProductDetail: React.FC = () => {
               <Box sx={{ display: "flex", justifyContent: "space-between", width: "100%" }}>
                 <Box>
                   <Typography sx={{ fontWeight: "bold", textTransform: "uppercase", fontSize: "15px" }}>
-                    {product.shop.shopName}
+                    {product.shop?.shopName}
                   </Typography>
                   <Typography sx={{ textTransform: "capitalize", color: "gray" }}>
-                    {product.shop.fullName}
+                    {product.shop?.fullName}
                   </Typography>
                 </Box>
                 <Typography
@@ -406,9 +406,9 @@ const ProductDetail: React.FC = () => {
               {product.shop ? (
                 <Box sx={{ padding: "0 20px 20px 20px" }}>
                   <Box sx={{ display: "flex", justifyContent: "center", marginTop: "-30px" }}>
-                    {product.shop.shopLogo && (
+                    {product.shop?.shopLogo && (
                       <img
-                        src={`${backendUrl}/${product.shop.shopLogo}`}
+                        src={`${backendUrl}/${product.shop?.shopLogo}`}
                         alt="Shop Logo"
                         style={{
                           width: "120px",
@@ -422,27 +422,27 @@ const ProductDetail: React.FC = () => {
                   </Box>
                   <Typography sx={{ padding: 0, margin: 0, color: "gray", fontSize: "12px" }}>Shop Name:</Typography>
                   <Typography sx={{ fontSize: "15px", backgroundColor: "rgba(155, 155, 155, 0.2)", padding: "5px 10px" }}>
-                    {product.shop.shopName}
+                    {product.shop?.shopName}
                   </Typography>
                   <Typography sx={{ padding: 0, margin: 0, color: "gray", fontSize: "12px" }}>Shop Owner:</Typography>
                   <Typography sx={{ fontSize: "15px", backgroundColor: "rgba(155, 155, 155, 0.2)", padding: "5px 10px" }}>
-                    {product.shop.fullName}
+                    {product.shop?.fullName}
                   </Typography>
                   <Typography sx={{ padding: 0, margin: 0, color: "gray", fontSize: "12px" }}>Shop Email:</Typography>
                   <Typography sx={{ fontSize: "15px", backgroundColor: "rgba(155, 155, 155, 0.2)", padding: "5px 10px" }}>
-                    {product.shop.email}
+                    {product.shop?.email}
                   </Typography>
                   <Typography sx={{ padding: 0, margin: 0, color: "gray", fontSize: "12px" }}>Shop Country:</Typography>
                   <Typography sx={{ fontSize: "15px", backgroundColor: "rgba(155, 155, 155, 0.2)", padding: "5px 10px" }}>
-                    {product.shop.country}
+                    {product.shop?.country}
                   </Typography>
                   <Typography sx={{ padding: 0, margin: 0, color: "gray", fontSize: "12px" }}>Shop City:</Typography>
                   <Typography sx={{ fontSize: "15px", backgroundColor: "rgba(155, 155, 155, 0.2)", padding: "5px 10px" }}>
-                    {product.shop.city}
+                    {product.shop?.city}
                   </Typography>
                   <Typography sx={{ padding: 0, margin: 0, color: "gray", fontSize: "12px" }}>Shop Phone Number:</Typography>
                   <Typography sx={{ fontSize: "15px", backgroundColor: "rgba(155, 155, 155, 0.2)", padding: "5px 10px" }}>
-                    {product.shop.phoneNumber}
+                    {product.shop?.phoneNumber}
                   </Typography>
                 </Box>
               ) : (
