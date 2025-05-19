@@ -67,6 +67,8 @@ const ProductDetail: React.FC = () => {
       .then((res) => res.json())
       .then((data) => {
         setProduct({ ...data.product, shop: data.shop });
+        console.log("Product data:", data.product);
+        console.log("Shop data:", data.shop);
         if (data.product.availableStock > 0) {
           setStockDisplay("Available");
         }
