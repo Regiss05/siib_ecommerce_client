@@ -16,10 +16,10 @@ import {
   ListItemText,
   Paper,
   Avatar,
+  CircularProgress,
 } from "@mui/material";
 import {
   ArrowBack,
-  Image as ImageIcon,
   Home as HomeIcon,
   ChatBubble as ChatIcon,
   Send as SendIcon,
@@ -41,11 +41,12 @@ const ChatScreen = () => {
   const [value, setValue] = useState("chat");
   const [messages, setMessages] = useState<Message[]>([]);
   const [newMessage, setNewMessage] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [loadingMessages, setLoadingMessages] = useState(true);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
 
   const backendUrl = process.env.REACT_APP_BACKEND_URL;
-
   const userId = "65af3456789abcdef0123456";
   const socket = useRef(io(`${backendUrl}`));
 
@@ -59,11 +60,14 @@ const ChatScreen = () => {
   }, []);
 
   const fetchMessages = async () => {
+    setLoadingMessages(true);
     try {
       const response = await axios.get(`${backendUrl}/chat/messages`);
       setMessages(response.data.messages);
     } catch (error) {
       console.error("Error fetching messages:", error);
+    } finally {
+      setLoadingMessages(false);
     }
   };
 
@@ -86,8 +90,9 @@ const ChatScreen = () => {
   };
 
   const handleSendMessage = async () => {
-    if (!newMessage.trim()) return;
+    if (!newMessage.trim() || loading) return;
 
+    setLoading(true);
     try {
       await axios.post(`${backendUrl}/chat/messages`, {
         senderId: userId,
@@ -96,6 +101,8 @@ const ChatScreen = () => {
       setNewMessage("");
     } catch (error) {
       console.error("Error sending message:", error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -108,7 +115,7 @@ const ChatScreen = () => {
   return (
     <Container maxWidth="sm" style={{ padding: 0 }}>
       <AppBar position="static" color="transparent" elevation={0}>
-        <Toolbar sx={{ backgroundColor: "white", width: "100%", height: "55%", display: "flex", justifyContent: "center", alignItems: "center", position: "relative" }}>
+        <Toolbar sx={{ backgroundColor: "white", width: "90%", height: "55%", display: "flex", justifyContent: "center", alignItems: "center", position: "relative" }}>
           <IconButton
             onClick={() => navigate(-1)}
             sx={{ backgroundColor: "white", position: "absolute", top: 10, left: 10, border: "1px solid #ddd" }}
@@ -126,53 +133,55 @@ const ChatScreen = () => {
           position: "relative",
           overflowY: "auto",
           backgroundColor: "rgba(255, 255, 255, 1)",
-          backgroundImage:
-            "url(https://img.freepik.com/premium-vector/social-networks-dating-apps-vector-seamless-pattern_341076-469.jpg?w=740)",
-          backgroundPosition: "center",
-          backgroundSize: "cover",
-          "&::before": {
-            content: '""',
-            position: "absolute",
-            top: 0,
-            left: 0,
-            right: 0,
-            bottom: 0,
-          },
         }}
       >
-        <List sx={{ marginBottom: "5rem" }}>
-          {messages.map((message, index) => (
-            <ListItem
-              key={index}
-              style={{
-                justifyContent: message.senderId === userId ? "flex-end" : "flex-start",
-              }}
-            >
-              <Paper
-                elevation={1}
-                style={{
-                  padding: "8px 12px",
-                  borderRadius: "20px",
-                  backgroundColor: message.senderId === userId ? "#DCF8C6" : "#fff",
-                }}
-              >
-                <ListItemText
-                  primary={message.text}
-                  secondary={new Date(message.timestamp).toLocaleTimeString()}
+        {loadingMessages ? (
+          <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center", height: "100%" }}>
+            <CircularProgress />
+          </Box>
+        ) : (
+          <List sx={{ marginBottom: "5rem" }}>
+            {messages.map((message, index) => {
+              const isRightAligned = index % 2 === 0;
+              return (
+                <ListItem
+                  key={index}
                   style={{
-                    textAlign: message.senderId === userId ? "right" : "left",
+                    justifyContent: isRightAligned ? "flex-end" : "flex-start",
                   }}
-                />
-              </Paper>
-              {message.senderId !== userId && (
-                <Avatar sx={{ marginLeft: 1 }}>
-                  <SupportIcon />
-                </Avatar>
-              )}
-            </ListItem>
-          ))}
-          <div ref={messagesEndRef} />
-        </List>
+                >
+                  {!isRightAligned && (
+                    <Avatar sx={{ marginRight: 1 }}>
+                      <SupportIcon />
+                    </Avatar>
+                  )}
+                  <Paper
+                    elevation={1}
+                    style={{
+                      padding: "8px 12px",
+                      borderRadius: "20px",
+                      backgroundColor: isRightAligned ? "#DCF8C6" : "#fff",
+                    }}
+                  >
+                    <ListItemText
+                      primary={message.text}
+                      secondary={new Date(message.timestamp).toLocaleTimeString()}
+                      style={{
+                        textAlign: isRightAligned ? "right" : "left",
+                      }}
+                    />
+                  </Paper>
+                  {isRightAligned && (
+                    <Avatar sx={{ marginLeft: 1 }}>
+                      <SupportIcon />
+                    </Avatar>
+                  )}
+                </ListItem>
+              );
+            })}
+            <div ref={messagesEndRef} />
+          </List>
+        )}
       </Box>
 
       <Box
@@ -200,8 +209,14 @@ const ChatScreen = () => {
           InputProps={{
             endAdornment: (
               <InputAdornment position="end">
-                <IconButton onClick={handleSendMessage}>
-                  <SendIcon />
+                <IconButton onClick={handleSendMessage} disabled={loading}>
+                  {loading ? (
+                    <Box sx={{ width: 20, height: 20 }}>
+                      <CircularProgress size={20} />
+                    </Box>
+                  ) : (
+                    <SendIcon />
+                  )}
                 </IconButton>
               </InputAdornment>
             ),
