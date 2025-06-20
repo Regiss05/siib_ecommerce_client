@@ -1,26 +1,38 @@
+# ---------- Stage 1: Build React App ----------
 FROM node:20-alpine AS builder
-# Create app directory
-RUN NODE_OPTIONS=--max-old-space-size=2048
-WORKDIR /app
-# add /app/node_modules/.bin to $PATH
-ENV PATH /app/node_modules/.bin:$PATH
 
+# Set memory limit to avoid build failures
+ENV NODE_OPTIONS=--max-old-space-size=2048
+
+WORKDIR /app
+
+# Install dependencies
 COPY package*.json ./
 RUN npm install --legacy-peer-deps
-#To bundle your app’s source code inside the Docker image, use the COPY instruction:
-COPY . /app
+
+# Copy source files
+COPY . .
+
+# Build React app
 RUN npm run build
 
+# ---------- Stage 2: Nginx Web Server ----------
 FROM nginx:alpine
-COPY nginx.conf /etc/nginx/conf.d/default.conf
+
+# Copy built app from previous stage
 COPY --from=builder /app/build /usr/share/nginx/html
-WORKDIR /app
-RUN chown -R nginx:nginx /app && chmod -R 755 /app && \
-        chown -R nginx:nginx /var/cache/nginx && \
-        chown -R nginx:nginx /var/log/nginx && \
-        chown -R nginx:nginx /etc/nginx/conf.d
-RUN touch /var/run/nginx.pid && \
-        chown -R nginx:nginx /var/run/nginx.pid
-USER root
-EXPOSE 8080
+
+# Copy updated Nginx config
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+
+# Set correct permissions (optional in many cases)
+RUN chown -R nginx:nginx /usr/share/nginx/html && \
+    chown -R nginx:nginx /var/cache/nginx && \
+    chown -R nginx:nginx /var/log/nginx && \
+    chown -R nginx:nginx /etc/nginx/conf.d
+
+# Expose HTTP (port 80) — no need for 8080 unless you're changing Nginx port
+EXPOSE 80
+
+# Start Nginx
 CMD ["nginx", "-g", "daemon off;"]
