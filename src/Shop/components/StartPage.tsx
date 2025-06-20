@@ -91,7 +91,7 @@ const StartPage = () => {
             <Typography sx={{ fontSize: "12px", textTransform: "none", lineHeight: 1 }}>Access your exclusive benefits</Typography>
           </Button>
 
-          <Button
+          {/* <Button
             onClick={() => window.location.href = 'https://bank.siibarnut.com'}
             sx={{
               flexDirection: "column",
@@ -116,7 +116,7 @@ const StartPage = () => {
             />
             <Typography sx={{ fontSize: "13px", marginBottom: "10px", fontWeight: "bold" }}>SIIB E-Bank</Typography>
             <Typography sx={{ fontSize: "12px", textTransform: "none", lineHeight: 1 }}>Manage your assets with complete transparency</Typography>
-          </Button>
+          </Button> */}
         </Box>
 
         {/* Testimonial */}
