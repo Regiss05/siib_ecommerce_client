@@ -1,6 +1,6 @@
 #!/bin/bash
 
-CONTAINER_NAME=Efrontend
+CONTAINER_NAME=siib-frontend
 IMAGE_NAME=ecomerce-frontend:latest
 
 # Ensure .env exists
