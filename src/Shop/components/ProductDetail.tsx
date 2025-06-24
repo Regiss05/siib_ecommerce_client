@@ -66,7 +66,8 @@ const ProductDetail: React.FC = () => {
     fetch(`${backendUrl}/products/${id}`)
       .then((res) => res.json())
       .then((data) => {
-        setProduct({ ...data.product, shop: data.shop });
+        setProduct(data.product);
+
         console.log('Product details: ', data.product);
         console.log('shop details: ', data.shop);
         if (data.product.availableStock > 0) {
@@ -236,7 +237,7 @@ const ProductDetail: React.FC = () => {
 
           <Typography sx={{ color: "gray", marginTop: "10px" }}>Seller informations</Typography>
 
-          {product.shop ? (
+          {product?.shop ? (
             <Box sx={{ display: "flex", alignItems: "center", gap: "10px", marginTop: "10px" }}>
               {product.shop.shopLogo && (
                 <img
