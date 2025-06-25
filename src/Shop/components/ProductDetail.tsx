@@ -404,53 +404,24 @@ const ProductDetail: React.FC = () => {
               }}
             >
               <Typography sx={{ textAlign: "center", padding: "50px", backgroundColor: "#362FFF", color: "white" }}>Shop Profile</Typography>
-              {product.shop ? (
-                <Box sx={{ padding: "0 20px 20px 20px" }}>
-                  <Box sx={{ display: "flex", justifyContent: "center", marginTop: "-30px" }}>
-                    {product.shop.shopLogo && (
-                      <img
-                        src={`${backendUrl}/${product.shop.shopLogo}`}
-                        alt="Shop Logo"
-                        style={{
-                          width: "120px",
-                          height: "120px",
-                          borderRadius: "50%",
-                          objectFit: "cover",
-                          boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.4)",
-                        }}
-                      />
-                    )}
-                  </Box>
-                  <Typography sx={{ padding: 0, margin: 0, color: "gray", fontSize: "12px" }}>Shop Name:</Typography>
-                  <Typography sx={{ fontSize: "15px", backgroundColor: "rgba(155, 155, 155, 0.2)", padding: "5px 10px" }}>
-                    {product.shop.shopName}
-                  </Typography>
-                  <Typography sx={{ padding: 0, margin: 0, color: "gray", fontSize: "12px" }}>Shop Owner:</Typography>
-                  <Typography sx={{ fontSize: "15px", backgroundColor: "rgba(155, 155, 155, 0.2)", padding: "5px 10px" }}>
-                    {product.shop.fullName}
-                  </Typography>
-                  <Typography sx={{ padding: 0, margin: 0, color: "gray", fontSize: "12px" }}>Shop Email:</Typography>
-                  <Typography sx={{ fontSize: "15px", backgroundColor: "rgba(155, 155, 155, 0.2)", padding: "5px 10px" }}>
-                    {product.shop.email}
-                  </Typography>
-                  <Typography sx={{ padding: 0, margin: 0, color: "gray", fontSize: "12px" }}>Shop Country:</Typography>
-                  <Typography sx={{ fontSize: "15px", backgroundColor: "rgba(155, 155, 155, 0.2)", padding: "5px 10px" }}>
-                    {product.shop.country}
-                  </Typography>
-                  <Typography sx={{ padding: 0, margin: 0, color: "gray", fontSize: "12px" }}>Shop City:</Typography>
-                  <Typography sx={{ fontSize: "15px", backgroundColor: "rgba(155, 155, 155, 0.2)", padding: "5px 10px" }}>
-                    {product.shop.city}
-                  </Typography>
-                  <Typography sx={{ padding: 0, margin: 0, color: "gray", fontSize: "12px" }}>Shop Phone Number:</Typography>
-                  <Typography sx={{ fontSize: "15px", backgroundColor: "rgba(155, 155, 155, 0.2)", padding: "5px 10px" }}>
-                    {product.shop.phoneNumber}
-                  </Typography>
-                </Box>
+              {product.shop && product.shop.country && product.shop.country.name ? (
+                <Typography
+                  variant="body2"
+                  sx={{
+                    color: "#362FFF",
+                    backgroundColor: "rgba(54, 47, 255, 0.2)",
+                    padding: "5px 10px",
+                    borderRadius: "15px",
+                  }}
+                >
+                  {product.shop.country.name}
+                </Typography>
               ) : (
                 <Typography variant="body2" sx={{ fontWeight: "bold", color: "gray" }}>
-                  Unknown Shop
+                  Unknown country
                 </Typography>
               )}
+
             </motion.div>
           </Box>
         )}
