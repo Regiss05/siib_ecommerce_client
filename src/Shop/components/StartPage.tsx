@@ -14,12 +14,12 @@ const StartPage = () => {
     <Container
       maxWidth="sm"
       sx={{
-        position: 'relative',
+        // position: 'relative',
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
-        height: '100vh',
+        // height: '100vh',
         backgroundImage: `url(${startPic})`,
         backgroundSize: 'cover',
         backgroundPosition: 'center',
@@ -71,10 +71,10 @@ const StartPage = () => {
               backgroundColor: "#362FFF",
               paddingX: 2,
               paddingY: 5,
-              borderTopLeftRadius: "10px",
-              borderTopRightRadius: 0,
-              borderBottomLeftRadius: "10px",
-              borderBottomRightRadius: 0,
+              borderRadius: "10px",
+              // borderTopRightRadius: 0,
+              // borderBottomLeftRadius: "10px",
+              // borderBottomRightRadius: 0,
               width: '50%',
             }}
           >
