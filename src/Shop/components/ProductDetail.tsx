@@ -409,7 +409,7 @@ const ProductDetail: React.FC = () => {
                   <Box sx={{ display: "flex", justifyContent: "center", marginTop: "-30px" }}>
                     {product.shop.shopLogo && (
                       <img
-                        src={`${backendUrl}/${product.shop.shopLogo}`}
+                        src={`${backendUrl}${product.shop.shopLogo}`}
                         alt="Shop Logo"
                         style={{
                           width: "120px",
