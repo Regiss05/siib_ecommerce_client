@@ -10,12 +10,12 @@ import Slide3 from "../../imges/statics/dapps.png";
 import Slide4 from "../../imges/statics/articles.png";
 
 const images = [
-  {
-    label: "Image 1",
-    src: Slide1,
-    buttonLabel: "Create Account",
-    position: { bottom: "15%", left: "27%" },
-  },
+  // {
+  //   label: "Image 1",
+  //   src: Slide1,
+  //   buttonLabel: "Create Account",
+  //   position: { bottom: "15%", left: "27%" },
+  // },
   {
     label: "Image 2",
     src: Slide2,
