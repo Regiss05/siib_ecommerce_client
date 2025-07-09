@@ -155,7 +155,7 @@ const ProductDetail: React.FC = () => {
         <CardMedia
           component="img"
           height="280"
-          image={`${backendUrl}${product.imageUrl}`}
+          image={`${backendUrl}/${product.imageUrl}`}
           alt={product.name}
           sx={{
             borderRadius: "0 0 30px 30px",
