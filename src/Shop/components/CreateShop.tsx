@@ -29,7 +29,7 @@ const countries = [
     name: 'Burundi 🇧🇮',
     code: '+257',
     flag: '🇧🇮',
-    documents: ['NIF', 'Registre du Commerce', 'Patente'],
+    documents: ['NIF', 'Registre du Commerce', 'Certificat d\'Immatriculation'],
     cities: ['Bujumbura', 'Gitega', 'Ngozi', 'Muyinga'],
   },
   {
