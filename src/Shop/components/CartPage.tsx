@@ -26,7 +26,7 @@ const Cart = () => {
   useEffect(() => {
     const fetchCart = async () => {
       if (!user || !user.uid) {
-        console.log("User not found.");
+        setLoading(false);
         return;
       }
 
@@ -73,6 +73,16 @@ const Cart = () => {
     }
   }, [cart]);
 
+  if (!user) {
+    return (
+      <Box sx={{ minHeight: "100vh", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", padding: "2rem" }}>
+        <Typography sx={{ fontSize: "18px", color: "#666" }}>
+          Please log in first to view your cart.
+        </Typography>
+      </Box>
+    );
+  }
+
   return (
     <Box sx={{ minHeight: "100vh", display: "flex", flexDirection: "column" }}>
       <IconButton
@@ -92,7 +102,7 @@ const Cart = () => {
         My Cart
       </Typography>
 
-      {user && user.name && (
+      {user.name && (
         <Typography sx={{ textAlign: "center", fontSize: "14px", color: "#888", marginBottom: "15px" }}>
           Signed in as: <strong>{user.name}</strong>
         </Typography>
@@ -105,10 +115,10 @@ const Cart = () => {
       </Box>
 
       {loading ? (
-        <Typography>Loading cart...</Typography>
+        <Typography sx={{ textAlign: "center", padding: "20px", color: "#666" }}>Loading cart...</Typography>
       ) : cart.length === 0 ? (
         <Typography sx={{ textAlign: "center", padding: "20px", color: "#666" }}>
-          To view your cart, please log in first. After logging in, add items to your cart to see them here.
+          Your cart is empty. Add items to your cart to see them here.
         </Typography>
       ) : (
         <Card sx={{ padding: "16px 24px", boxShadow: "none" }}>
